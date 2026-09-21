@@ -25,6 +25,7 @@
   --red-soft:#F7ECEA;
   --debit:#151515;
   --credit:#8E2A21;
+  --shade:rgba(21,21,21,.32);
 
   --serif:Charter,"Bitstream Charter","Iowan Old Style",Georgia,"Times New Roman",serif;
   --sans:"Helvetica Neue",Helvetica,Arial,"Liberation Sans",sans-serif;
@@ -34,11 +35,13 @@
   :root:not([data-theme="light"]){
     --paper:#161616;--sunken:#1F1F1E;--ink:#E6E6E3;--ink-2:#BEBEBA;--muted:#8C8C88;
     --rule:#2E2E2C;--rule-mid:#474745;--red:#D9958D;--red-soft:#2A1E1C;--debit:#E6E6E3;--credit:#D9958D;
+    --shade:rgba(0,0,0,.55);
   }
 }
 :root[data-theme="dark"]{
   --paper:#161616;--sunken:#1F1F1E;--ink:#E6E6E3;--ink-2:#BEBEBA;--muted:#8C8C88;
   --rule:#2E2E2C;--rule-mid:#474745;--red:#D9958D;--red-soft:#2A1E1C;--debit:#E6E6E3;--credit:#D9958D;
+  --shade:rgba(0,0,0,.55);
 }
 
 *{box-sizing:border-box}
@@ -64,37 +67,22 @@ strong{font-weight:700}
 [data-fr]:hover{text-decoration-color:var(--red)}
 [data-fr].fr-on{color:var(--red);text-decoration-style:solid;text-decoration-color:var(--red)}
 
-/* ---- MAZEN mark: one shape, takes the text colour ---- */
+/* ---- the mark: one shape, takes the text colour, never stretched ---- */
 .mark{fill:currentColor;display:inline-block;vertical-align:middle;width:14.5px;height:16px;flex:none}
-.lockup{display:inline-flex;align-items:center;gap:8px;color:var(--ink);text-decoration:none;font-family:var(--sans)}
-.lockup .word{font-size:12.5px;letter-spacing:.16em;font-weight:700;line-height:1}
+.code{font-family:var(--mono);font-size:10.5px;letter-spacing:.02em;color:var(--muted)}
 
-/* ===========================================================
-   TOP BAR
-   =========================================================== */
-.topbar{
-  position:sticky;top:env(safe-area-inset-top,0px);z-index:50;
-  background:var(--paper);border-bottom:1px solid var(--rule-mid);
+/* ---- small controls ---- */
+.icon-btn{
+  width:28px;height:28px;display:inline-grid;place-items:center;padding:0;
+  border:1px solid var(--rule-mid);border-radius:2px;background:var(--paper);color:var(--ink-2);cursor:pointer;
 }
-.topbar-in{
-  max-width:1180px;margin:0 auto;padding:7px clamp(16px,4vw,36px);
-  display:flex;align-items:center;gap:8px;flex-wrap:nowrap;
-  font-family:var(--sans);min-height:42px;
-}
-.brand{display:flex;align-items:center;gap:12px;margin-right:auto;min-width:0;padding-right:10px}
-.brand .doc{font-size:12.5px;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.brand .doc b{color:var(--ink)}
-.brand .sep{width:1px;height:16px;background:var(--rule-mid);flex:none}
-@media (max-width:640px){.brand .doc,.brand .sep{display:none}}
-.btn{
-  font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.04em;
-  background:transparent;color:var(--ink-2);border:1px solid var(--rule-mid);
-  border-radius:2px;padding:4px 9px;cursor:pointer;line-height:1.4;white-space:nowrap;
-}
-.btn:hover{border-color:var(--ink);color:var(--ink)}
-.btn[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-@media (max-width:640px){.btn{padding:4px 7px;font-size:10.5px}}
-@media (max-width:480px){.btn{padding:4px 6px;font-size:10px}.btn .long{display:none}.topbar-in{gap:6px}.lockup .word{letter-spacing:.12em}}
+.icon-btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.icon-btn:hover{border-color:var(--ink);color:var(--ink)}
+.ico-sun{display:none}
+:root[data-theme="dark"] .ico-sun{display:block}
+:root[data-theme="dark"] .ico-moon{display:none}
+.tlink{background:none;border:0;padding:0;font:700 10.5px var(--sans);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);cursor:pointer}
+.tlink:hover{color:var(--ink);text-decoration:underline}
 
 /* ===========================================================
    SHELL: contents rail + text, separated by a hairline
@@ -102,22 +90,30 @@ strong{font-weight:700}
 .shell{
   max-width:1180px;margin:0 auto;
   padding-inline:clamp(16px,4vw,36px);padding-block:0 80px;
-  display:grid;grid-template-columns:220px minmax(0,1fr);
+  display:grid;grid-template-columns:230px minmax(0,1fr);
   gap:0 clamp(28px,4vw,52px);align-items:start;
 }
-.shell.rail-hidden{grid-template-columns:minmax(0,1fr)}
-.shell.rail-hidden .rail{display:none}
+body.rail-hidden .shell{grid-template-columns:minmax(0,1fr)}
+body.rail-hidden .rail{display:none}
 
 .rail{
-  position:sticky;top:calc(env(safe-area-inset-top,0px) + 50px);
-  max-height:calc(100dvh - 66px);overflow-y:auto;
-  padding:26px 18px 20px 0;font-family:var(--sans);font-size:12px;
+  position:sticky;top:0;max-height:100dvh;overflow-y:auto;
+  padding:22px 18px 24px 0;font-family:var(--sans);font-size:12px;
   border-right:1px solid var(--rule);
   scrollbar-width:thin;scrollbar-color:var(--rule-mid) transparent;
 }
 .rail::-webkit-scrollbar{width:6px}
 .rail::-webkit-scrollbar-thumb{background:var(--rule-mid);border-radius:3px}
-.rail-title{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+
+.rail-head{padding-bottom:12px;border-bottom:1px solid var(--rule-mid);margin-bottom:12px}
+.rail-head .row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.rail-head .mark{width:22px;height:24.2px;color:var(--ink)}
+.rail-tools{display:flex;gap:6px}
+.rail-head .code{display:block;margin:14px 0 2px;word-break:break-all}
+.rail-head .doc{font-size:12px;font-weight:700;color:var(--ink)}
+.rail-head .links{display:flex;gap:12px;margin-top:9px}
+
+.rail-title{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
 details.navpart{border-top:1px solid var(--rule)}
 details.navpart:last-of-type{border-bottom:1px solid var(--rule)}
 details.navpart > summary{
@@ -135,12 +131,36 @@ details.navpart.current > summary{color:var(--ink)}
 .rail a:hover{text-decoration:underline}
 .rail a.on{color:var(--red);font-weight:700}
 
+/* floating controls: contents at bottom-left, top at bottom-right */
+.fab{
+  position:fixed;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:40;
+  width:36px;height:36px;display:none;place-items:center;padding:0;
+  background:var(--paper);color:var(--ink-2);border:1px solid var(--rule-mid);border-radius:2px;cursor:pointer;
+}
+.fab svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.fab:hover{border-color:var(--ink);color:var(--ink)}
+.fab.navfab{left:18px}
+body.rail-hidden .navfab{display:grid}
+.totop{right:18px;opacity:0;pointer-events:none;transition:opacity .15s;display:grid}
+.totop.show{opacity:1;pointer-events:auto}
+.backdrop{position:fixed;inset:0;background:var(--shade);z-index:65;display:none}
+
+/* phones and tablets: the rail is a drawer */
 @media (max-width:980px){
   .shell{grid-template-columns:minmax(0,1fr)}
-  .rail{position:static;max-height:none;overflow:visible;border-right:0;border-bottom:1px solid var(--rule);padding:14px 0 6px}
+  .rail,body.rail-hidden .rail{
+    display:block;position:fixed;top:0;left:0;bottom:0;width:min(320px,86vw);max-height:none;
+    background:var(--paper);border-right:1px solid var(--rule-mid);padding:18px 16px 24px;z-index:70;
+    transform:translateX(-102%);transition:transform .2s ease;
+  }
+  body:not(.rail-hidden) .rail{transform:none}
+  body:not(.rail-hidden) .backdrop{display:block}
+  body:not(.rail-hidden){overflow:hidden}
+  .navfab{display:grid}
+  body:not(.rail-hidden) .navfab{display:none}
 }
 
-main{padding-block:28px 0;min-width:0}
+main{padding-block:26px 0;min-width:0}
 .prose{max-width:62ch}
 
 /* ===========================================================
@@ -157,14 +177,14 @@ main{padding-block:28px 0;min-width:0}
 .fact dt{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:1px}
 .fact dd{margin:0;font-size:13px;font-weight:700}
 .credit{margin:12px 0 0;font-size:11.5px;color:var(--muted);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.credit .lockup{color:var(--ink-2)}
+.credit .mark{color:var(--ink-2);width:16px;height:17.6px}
 
 /* ===========================================================
    SECTIONS: one rhythm
    =========================================================== */
 main > section{margin-top:52px}
 main > section:first-of-type{margin-top:0}
-section{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 60px)}
+section{scroll-margin-top:16px}
 .partline{margin:64px 0 0;border-top:2px solid var(--ink);padding-top:8px;font-family:var(--sans)}
 .partline:first-of-type{margin-top:30px;border-top:0;padding-top:0}
 .partline span{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
@@ -181,7 +201,7 @@ li::marker{color:var(--muted)}
 code{font-family:var(--mono);font-size:.88em;background:var(--sunken);padding:1px 4px}
 
 /* ===========================================================
-   CALLOUTS: rule = bordered white, warn = red border, note = paragraph
+   CALLOUTS
    =========================================================== */
 .box{margin:20px 0;padding:10px 14px 12px;border:1px solid var(--rule-mid);border-radius:2px;background:var(--paper)}
 .box.rule{border:1.5px solid var(--ink)}
@@ -199,7 +219,7 @@ p.note{max-width:66ch;margin:16px 0 18px}
 p.note .note-lab{font-family:var(--sans);font-size:13px}
 
 /* ===========================================================
-   JOURNAL ENTRIES: five columns, working column gets the room
+   JOURNAL ENTRIES: five columns
    =========================================================== */
 .je-wrap{margin:16px 0 22px;overflow-x:auto;border:1px solid var(--rule-mid);border-radius:2px;position:relative}
 .je-cap{
@@ -249,7 +269,7 @@ p.note .note-lab{font-family:var(--sans);font-size:13px}
 .t-row.bal{border-top:1px solid var(--rule-mid);margin-top:4px;padding-top:3px;font-weight:600}
 
 /* ===========================================================
-   TABLES: caption is a title with a rule, not a grey bar
+   TABLES
    =========================================================== */
 .tw{overflow-x:auto;margin:18px 0 22px;border:1px solid var(--rule-mid);border-radius:2px;position:relative}
 table.data{width:100%;border-collapse:collapse;font-size:13px;font-family:var(--sans);min-width:min(100%,420px)}
@@ -343,7 +363,7 @@ table.data tr.grp td{font-weight:700;font-size:10.5px;letter-spacing:.05em;text-
 .tag.r{border-color:var(--red);color:var(--red)}
 
 /* ===========================================================
-   REVEALS, PRACTICE, EXERCISES: grey means clickable
+   REVEALS, PRACTICE, EXERCISES
    =========================================================== */
 details.rev{margin:16px 0;border:1px solid var(--rule-mid);border-radius:2px}
 details.rev > summary{
@@ -402,6 +422,12 @@ details.practice[open] > summary::after{content:"close"}
 .drill-fb{font-size:13px;color:var(--ink-2);margin:0 0 12px;line-height:1.55;max-width:66ch;min-height:1.5em;font-family:var(--serif)}
 .drill-nav{display:flex;gap:8px;align-items:center;border-top:1px solid var(--rule);padding-top:10px}
 .drill-prog{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.btn{
+  font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.04em;
+  background:transparent;color:var(--ink-2);border:1px solid var(--rule-mid);
+  border-radius:2px;padding:4px 9px;cursor:pointer;line-height:1.4;white-space:nowrap;
+}
+.btn:hover{border-color:var(--ink);color:var(--ink)}
 
 /* ---- glossary ---- */
 .gl-search{
@@ -417,25 +443,15 @@ table.gloss.two td:nth-child(2){width:auto;color:var(--ink)}
 tr[hidden]{display:none}
 .gl-count{font-family:var(--mono);font-size:11px;color:var(--muted);margin:0 0 12px}
 
-/* ---- back to top ---- */
-.totop{
-  position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:40;
-  font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.04em;
-  background:var(--paper);color:var(--ink-2);border:1px solid var(--rule-mid);border-radius:2px;
-  padding:6px 10px;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .15s;
-}
-.totop.show{opacity:1;pointer-events:auto}
-.totop:hover{border-color:var(--ink);color:var(--ink)}
-
 footer{
   max-width:1180px;margin:0 auto;padding:24px clamp(16px,4vw,36px) 50px;
   border-top:1px solid var(--ink);color:var(--muted);font-size:12.5px;
 }
 footer p{max-width:72ch}
-footer .lockup{color:var(--ink);margin-bottom:10px}
+footer .mark{color:var(--ink);width:18px;height:19.8px;margin-bottom:10px;display:block}
 
 @media print{
-  .topbar,.rail,.drill,.btn,.gl-search,.totop{display:none!important}
+  .rail,.drill,.btn,.gl-search,.fab,.backdrop{display:none!important}
   .shell{grid-template-columns:1fr;padding:0}
   details.rev[open],.je-wrap,.ex-block,.tw{break-inside:avoid}
   h2.sec{break-after:avoid}
@@ -451,23 +467,31 @@ footer .lockup{color:var(--ink);margin-bottom:10px}
   </symbol>
 </svg>
 
-<div class="topbar">
-  <div class="topbar-in">
-    <div class="brand">
-      <span class="lockup" title="Prepared by MAZEN"><svg class="mark" aria-hidden="true"><use href="#mazen-mark"/></svg><span class="word">MAZEN</span></span>
-      <span class="sep"></span>
-      <span class="doc"><b>Accounting I</b> · Chapter 1 · study notes</span>
-    </div>
-    <button class="btn" id="navToggle" type="button" aria-pressed="true" aria-controls="railbody">Contents</button>
-    <button class="btn" id="themeToggle" type="button" aria-pressed="false">Dark</button>
-    <button class="btn" id="openAll" type="button" title="Open every answer and every practice block">Expand<span class="long"> all</span></button>
-    <button class="btn" id="closeAll" type="button" title="Close every answer and every practice block">Collapse<span class="long"> all</span></button>
-  </div>
-</div>
+<div class="backdrop" id="backdrop"></div>
 
 <div class="shell" id="shell">
 
-<nav class="rail" aria-label="Contents">
+<nav class="rail" id="rail" aria-label="Contents">
+  <div class="rail-head">
+    <div class="row">
+      <svg class="mark" role="img" aria-label="MAZEN"><use href="#mazen-mark"/></svg>
+      <div class="rail-tools">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Switch between light and dark">
+          <svg class="ico-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="ico-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
+        <button class="icon-btn" id="navHide" type="button" aria-label="Hide contents">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+        </button>
+      </div>
+    </div>
+    <span class="code">26-27_HES-SO-GE_ACCOUNTING I</span>
+    <div class="doc">Chapter 1 · Study notes</div>
+    <div class="links">
+      <button class="tlink" id="openAll" type="button" title="Open every answer and every practice block">Open all</button>
+      <button class="tlink" id="closeAll" type="button" title="Close every answer and every practice block">Close all</button>
+    </div>
+  </div>
   <div class="railbody" id="railbody">
     <p class="rail-title">Contents</p>
     <details class="navpart" open data-part="1"><summary>Part I · Foundations</summary><ol>
@@ -533,7 +557,7 @@ footer .lockup{color:var(--ink);margin-bottom:10px}
     <div class="fact"><dt>Final exam</dt><dd>100% · 120 min · January</dd></div>
     <div class="fact"><dt>Allowed</dt><dd>Calculator only</dd></div>
   </dl>
-  <p class="credit"><span class="lockup"><svg class="mark" aria-hidden="true"><use href="#mazen-mark"/></svg><span class="word">MAZEN</span></span><span>Prepared by Marc Valiyev. Free for HEG students to use and share.</span></p>
+  <p class="credit"><svg class="mark" role="img" aria-label="MAZEN"><use href="#mazen-mark"/></svg><span class="code">26-27_HES-SO-GE_ACCOUNTING I</span><span>Free for HEG students to use and share.</span></p>
 </header>
 <div class="partline"><span>Part I · Foundations</span></div>
 
@@ -4059,55 +4083,60 @@ footer .lockup{color:var(--ink);margin-bottom:10px}
 </div>
 
 <footer>
-<p class="lockup"><svg class="mark" aria-hidden="true"><use href="#mazen-mark"/></svg><span class="word">MAZEN</span></p>
-<p><strong>Accounting I, Chapter 1, study notes.</strong> Prepared by Marc Valiyev for HEG Geneva students. Built from the 2026-2027 syllabus, course overview, Chapter 1 deck, Exercises 1 to 9, the official solutions to Exercises 1 to 3, and the Swiss Chart of Accounts for SMEs (Éditions LEP 2014, abridged for schools). Article references are to the Swiss Code of Obligations.</p>
+<svg class="mark" role="img" aria-label="MAZEN"><use href="#mazen-mark"/></svg>
+<p><strong>Accounting I, Chapter 1, study notes.</strong> <span class="code">26-27_HES-SO-GE_ACCOUNTING I</span>. Built from the 2026-2027 syllabus, course overview, Chapter 1 deck, Exercises 1 to 9, the official solutions to Exercises 1 to 3, and the Swiss Chart of Accounts for SMEs (Éditions LEP 2014, abridged for schools). Article references are to the Swiss Code of Obligations. Free for HEG students to use and share.</p>
 <p style="margin-top:10px">Solutions to Exercises 1, 2 and 3 are the professor's own. Solutions to Exercises 4 to 9 are worked from the course's mechanisms and cross-checked where the arithmetic allows: Exercise 8's two statements agree independently, and Exercise 9's equity reconciles two ways. Lines marked <span class="tag r">Judgment call</span> depend on a convention the professor may set differently. The underlying course material belongs to its authors and to HEG Geneva; the chart of accounts belongs to Éditions LEP.</p>
 </footer>
 
 
-<button class="totop" id="toTop" type="button" aria-label="Back to top">Top &#8593;</button>
+<button class="fab navfab" id="navOpen" type="button" aria-label="Show contents">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+</button>
+<button class="fab totop" id="toTop" type="button" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
 
 <script>
 (function(){
   "use strict";
-  var root = document.documentElement;
+  var root = document.documentElement, body = document.body;
   var store = {
     get: function(k){ try { return localStorage.getItem(k); } catch(e){ return null; } },
     set: function(k, v){ try { localStorage.setItem(k, v); } catch(e){} }
   };
   var narrow = function(){ return window.matchMedia('(max-width:980px)').matches; };
 
-  /* ---------- light / dark ---------- */
+  /* ---------- light / dark, moon shows in light, sun in dark ---------- */
   var themeBtn = document.getElementById('themeToggle');
-  function applyTheme(dark){
-    root.setAttribute('data-theme', dark ? 'dark' : 'light');
-    if (themeBtn) { themeBtn.textContent = dark ? 'Light' : 'Dark'; themeBtn.setAttribute('aria-pressed', String(dark)); }
-  }
+  function applyTheme(dark){ root.setAttribute('data-theme', dark ? 'dark' : 'light'); }
   applyTheme(store.get('acc1-theme') === 'dark');
   if (themeBtn) themeBtn.addEventListener('click', function(){
     var dark = root.getAttribute('data-theme') !== 'dark';
     applyTheme(dark); store.set('acc1-theme', dark ? 'dark' : 'light');
   });
 
-  /* ---------- contents rail: show / hide, remembered ---------- */
-  var shell = document.getElementById('shell');
-  var navToggle = document.getElementById('navToggle');
-  function setRail(shown){
-    shell.classList.toggle('rail-hidden', !shown);
-    if (navToggle) navToggle.setAttribute('aria-pressed', String(shown));
-  }
+  /* ---------- contents rail: column on desktop, drawer on phones ---------- */
+  function setRail(shown){ body.classList.toggle('rail-hidden', !shown); }
   (function initRail(){
-    var saved = store.get('acc1-rail');            // 'shown' | 'hidden' | null
-    if (saved === 'shown' || saved === 'hidden') setRail(saved === 'shown');
-    else setRail(!narrow());                        // phones start folded, desktops open
+    if (narrow()) { setRail(false); return; }               // phones always start closed
+    var saved = store.get('acc1-rail');
+    setRail(saved !== 'hidden');
   })();
-  if (navToggle) navToggle.addEventListener('click', function(){
-    var shown = shell.classList.contains('rail-hidden');
-    setRail(shown); store.set('acc1-rail', shown ? 'shown' : 'hidden');
-  });
-  // on phones, following a link folds the rail again so the text is in view
+  var navOpen = document.getElementById('navOpen'), navHide = document.getElementById('navHide');
+  var backdrop = document.getElementById('backdrop');
+  function show(){ setRail(true); if (!narrow()) store.set('acc1-rail', 'shown'); }
+  function hide(){ setRail(false); if (!narrow()) store.set('acc1-rail', 'hidden'); }
+  if (navOpen) navOpen.addEventListener('click', show);
+  if (navHide) navHide.addEventListener('click', hide);
+  if (backdrop) backdrop.addEventListener('click', hide);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && narrow() && !body.classList.contains('rail-hidden')) hide(); });
   document.getElementById('railbody').addEventListener('click', function(e){
-    if (e.target.closest('a') && narrow()) setRail(false);
+    if (e.target.closest('a') && narrow()) hide();
+  });
+  var wasNarrow = narrow();
+  window.addEventListener('resize', function(){
+    var n = narrow();
+    if (n !== wasNarrow) { wasNarrow = n; if (n) setRail(false); else setRail(store.get('acc1-rail') !== 'hidden'); }
   });
 
   /* ---------- scroll spy: highlight link, open its Part ---------- */
@@ -4126,7 +4155,7 @@ footer .lockup{color:var(--ink);margin-bottom:10px}
       var part = a.closest('details.navpart');
       Array.prototype.forEach.call(document.querySelectorAll('details.navpart'), function(d){ d.classList.toggle('current', d === part); });
       if (part && !part.open) part.open = true;
-    }, { rootMargin: '-64px 0px -72% 0px', threshold: 0 });
+    }, { rootMargin: '-10px 0px -72% 0px', threshold: 0 });
     Object.keys(map).forEach(function(id){ io.observe(document.getElementById(id)); });
   }
 
@@ -4144,7 +4173,7 @@ footer .lockup{color:var(--ink);margin-bottom:10px}
     el.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); swap(); } });
   });
 
-  /* ---------- expand / collapse everything foldable in the text ---------- */
+  /* ---------- open / close everything foldable in the text ---------- */
   function setAll(open){
     Array.prototype.forEach.call(document.querySelectorAll('details.rev, details.practice'), function(d){ d.open = open; });
   }

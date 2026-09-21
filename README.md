@@ -1,6 +1,13 @@
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/mark-cream.svg">
+  <img src="assets/mark-slate.svg" width="40" height="44" alt="">
+</picture>
+
 # Accounting I · Chapter 1 · Study notes
 
-Study notes for **Accounting I** (Haute école de gestion de Genève, International Business Management, 2026-2027), covering Chapter 1, *Review of accounting fundamentals*. Prepared by **Marc Valiyev, MAZEN**. Free for HEG students to use and share.
+`26-27_HES-SO-GE_ACCOUNTING I`
+
+Study notes for **Accounting I** (Haute école de gestion de Genève, International Business Management, 2026-2027), covering Chapter 1, *Review of accounting fundamentals*. Free for HEG students to use and share.
 
 **Read it online:** https://marcvlv.github.io/heg-accounting-1/
 **Download:** the whole document is the single file `index.html`. Save it and open it in any browser; it works offline.
@@ -18,7 +25,7 @@ Study notes for **Accounting I** (Haute école de gestion de Genève, Internatio
 
 Course syllabus, course overview and Chapter 1 slides (HEG Geneva, 2026-2027); Chapter 1 exercises 1 to 9 and the official solutions to exercises 1 to 3; *Plan comptable suisse PME, version abrégée pour les écoles* (Éditions LEP, 2014). Article references are to the Swiss Code of Obligations.
 
-The underlying course material belongs to its authors and to HEG Geneva; the chart of accounts belongs to Éditions LEP. These notes are a student's study aid and carry no license of their own. The MAZEN mark belongs to Marc Valiyev.
+The underlying course material belongs to its authors and to HEG Geneva; the chart of accounts belongs to Éditions LEP. These notes are a student's study aid and carry no license of their own.
 
 ## Corrections
 
