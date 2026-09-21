@@ -5,12 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Accounting I, Chapter 1 (HEG Geneva, IBM 2026-2027): study notes, five-column journal entries, practice after every section, all nine exercises worked, EN-FR glossary.">
 <title>Accounting I · Chapter 1 · Study notes</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%92%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="favicon.ico">
 <style>[hidden]{display:none!important} img{max-width:100%}</style>
 <style>
 /* ===========================================================
-   A course handout, not a website. Paper, ink, one muted red.
-   Light is the default; dark is a switch, not a mood.
+   A course handout. Paper, ink, one muted red.
+   Grey fill means "you can click this" or "an exercise";
+   a white box with a border means "a rule to remember".
    =========================================================== */
 :root{
   --paper:#FFFFFF;
@@ -31,34 +32,17 @@
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --paper:#161616;
-    --sunken:#1F1F1E;
-    --ink:#E6E6E3;
-    --ink-2:#BEBEBA;
-    --muted:#8C8C88;
-    --rule:#2E2E2C;
-    --rule-mid:#474745;
-    --red:#D9958D;
-    --red-soft:#2A1E1C;
-    --debit:#E6E6E3;
-    --credit:#D9958D;
+    --paper:#161616;--sunken:#1F1F1E;--ink:#E6E6E3;--ink-2:#BEBEBA;--muted:#8C8C88;
+    --rule:#2E2E2C;--rule-mid:#474745;--red:#D9958D;--red-soft:#2A1E1C;--debit:#E6E6E3;--credit:#D9958D;
   }
 }
 :root[data-theme="dark"]{
-  --paper:#161616;
-  --sunken:#1F1F1E;
-  --ink:#E6E6E3;
-  --ink-2:#BEBEBA;
-  --muted:#8C8C88;
-  --rule:#2E2E2C;
-  --rule-mid:#474745;
-  --red:#D9958D;
-  --red-soft:#2A1E1C;
-  --debit:#E6E6E3;
-  --credit:#D9958D;
+  --paper:#161616;--sunken:#1F1F1E;--ink:#E6E6E3;--ink-2:#BEBEBA;--muted:#8C8C88;
+  --rule:#2E2E2C;--rule-mid:#474745;--red:#D9958D;--red-soft:#2A1E1C;--debit:#E6E6E3;--credit:#D9958D;
 }
 
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
   margin:0;background:var(--paper);color:var(--ink);
   font-family:var(--serif);font-size:15.5px;line-height:1.65;
@@ -71,13 +55,19 @@ a{color:var(--ink);text-underline-offset:2px}
 .n,.mono{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:.9em}
 strong{font-weight:700}
 
-/* ---- bilingual terms: dotted underline, click to swap ---- */
+/* ---- bilingual terms: quiet dotted underline, click to swap ---- */
 [data-fr]{
-  border-bottom:1px dotted var(--rule-mid);cursor:pointer;
-  text-decoration:none;
+  cursor:pointer;
+  text-decoration:underline dotted;text-decoration-color:var(--rule-mid);
+  text-decoration-thickness:1px;text-underline-offset:3px;
 }
-[data-fr]:hover{border-bottom-color:var(--red)}
-[data-fr].fr-on{color:var(--red);border-bottom-style:solid;border-bottom-color:var(--red)}
+[data-fr]:hover{text-decoration-color:var(--red)}
+[data-fr].fr-on{color:var(--red);text-decoration-style:solid;text-decoration-color:var(--red)}
+
+/* ---- MAZEN mark: one shape, takes the text colour ---- */
+.mark{fill:currentColor;display:inline-block;vertical-align:middle;width:14.5px;height:16px;flex:none}
+.lockup{display:inline-flex;align-items:center;gap:8px;color:var(--ink);text-decoration:none;font-family:var(--sans)}
+.lockup .word{font-size:12.5px;letter-spacing:.16em;font-weight:700;line-height:1}
 
 /* ===========================================================
    TOP BAR
@@ -87,81 +77,103 @@ strong{font-weight:700}
   background:var(--paper);border-bottom:1px solid var(--rule-mid);
 }
 .topbar-in{
-  max-width:1180px;margin:0 auto;padding:8px clamp(16px,4vw,36px);
-  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
-  font-family:var(--sans);
+  max-width:1180px;margin:0 auto;padding:7px clamp(16px,4vw,36px);
+  display:flex;align-items:center;gap:8px;flex-wrap:nowrap;
+  font-family:var(--sans);min-height:42px;
 }
-.brand{font-size:12.5px;font-weight:700;margin-right:auto;color:var(--ink-2)}
-.brand span{color:var(--muted);font-weight:400}
+.brand{display:flex;align-items:center;gap:12px;margin-right:auto;min-width:0;padding-right:10px}
+.brand .doc{font-size:12.5px;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand .doc b{color:var(--ink)}
+.brand .sep{width:1px;height:16px;background:var(--rule-mid);flex:none}
+@media (max-width:640px){.brand .doc,.brand .sep{display:none}}
 .btn{
   font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.04em;
   background:transparent;color:var(--ink-2);border:1px solid var(--rule-mid);
-  border-radius:2px;padding:4px 9px;cursor:pointer;line-height:1.4;
+  border-radius:2px;padding:4px 9px;cursor:pointer;line-height:1.4;white-space:nowrap;
 }
 .btn:hover{border-color:var(--ink);color:var(--ink)}
 .btn[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+@media (max-width:640px){.btn{padding:4px 7px;font-size:10.5px}}
+@media (max-width:480px){.btn{padding:4px 6px;font-size:10px}.btn .long{display:none}.topbar-in{gap:6px}.lockup .word{letter-spacing:.12em}}
 
 /* ===========================================================
-   SHELL
+   SHELL: contents rail + text, separated by a hairline
    =========================================================== */
 .shell{
   max-width:1180px;margin:0 auto;
   padding-inline:clamp(16px,4vw,36px);padding-block:0 80px;
-  display:grid;grid-template-columns:200px minmax(0,1fr);
-  gap:clamp(28px,4.5vw,60px);align-items:start;
+  display:grid;grid-template-columns:220px minmax(0,1fr);
+  gap:0 clamp(28px,4vw,52px);align-items:start;
 }
-@media (max-width:980px){.shell{grid-template-columns:minmax(0,1fr)}}
+.shell.rail-hidden{grid-template-columns:minmax(0,1fr)}
+.shell.rail-hidden .rail{display:none}
 
 .rail{
   position:sticky;top:calc(env(safe-area-inset-top,0px) + 50px);
-  max-height:calc(100dvh - 70px);overflow-y:auto;
-  padding-block:28px 20px;font-family:var(--sans);font-size:12px;
+  max-height:calc(100dvh - 66px);overflow-y:auto;
+  padding:26px 18px 20px 0;font-family:var(--sans);font-size:12px;
+  border-right:1px solid var(--rule);
+  scrollbar-width:thin;scrollbar-color:var(--rule-mid) transparent;
 }
-.rail ol{list-style:none;margin:0 0 4px;padding:0}
-.rail .part{
-  font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--muted);margin:16px 0 5px;
+.rail::-webkit-scrollbar{width:6px}
+.rail::-webkit-scrollbar-thumb{background:var(--rule-mid);border-radius:3px}
+.rail-title{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+details.navpart{border-top:1px solid var(--rule)}
+details.navpart:last-of-type{border-bottom:1px solid var(--rule)}
+details.navpart > summary{
+  list-style:none;cursor:pointer;padding:7px 0;
+  font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);
+  display:flex;align-items:center;gap:6px;
 }
-.rail .part:first-child{margin-top:0}
+details.navpart > summary::-webkit-details-marker{display:none}
+details.navpart > summary::before{content:"+";font-family:var(--mono);font-weight:400;width:9px;color:var(--muted)}
+details.navpart[open] > summary::before{content:"\2212"}
+details.navpart > summary:hover{color:var(--ink)}
+details.navpart.current > summary{color:var(--ink)}
+.rail ol{list-style:none;margin:0 0 8px;padding:0 0 0 15px}
 .rail a{display:block;padding:2px 0;color:var(--ink-2);text-decoration:none;line-height:1.5}
 .rail a:hover{text-decoration:underline}
-.rail a.on{color:var(--ink);font-weight:700}
-.railtoggle{display:none}
+.rail a.on{color:var(--red);font-weight:700}
+
 @media (max-width:980px){
-  .rail{position:static;max-height:none;overflow:visible;padding-block:14px 0;border-bottom:1px solid var(--rule)}
-  .railtoggle{display:block}
-  .railbody[hidden]{display:none!important}
+  .shell{grid-template-columns:minmax(0,1fr)}
+  .rail{position:static;max-height:none;overflow:visible;border-right:0;border-bottom:1px solid var(--rule);padding:14px 0 6px}
 }
 
 main{padding-block:28px 0;min-width:0}
-.prose{max-width:66ch}
+.prose{max-width:62ch}
 
 /* ===========================================================
    DOCUMENT HEADER
    =========================================================== */
-.doc-head{border-bottom:1px solid var(--ink);padding-bottom:18px;margin-bottom:30px;font-family:var(--sans)}
+.doc-head{border-bottom:1px solid var(--ink);padding-bottom:16px;margin-bottom:8px;font-family:var(--sans)}
 .doc-head .inst{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
 .doc-head .course{font-size:13px;font-weight:700;color:var(--red);margin-bottom:4px}
 .doc-head h1{font-size:clamp(22px,3vw,30px);letter-spacing:-.015em;margin:0 0 6px}
 .doc-head .kind{font-family:var(--serif);font-size:15px;color:var(--ink-2);margin:0 0 18px;max-width:62ch}
-.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0;border-top:1px solid var(--rule-mid);margin:0}
-.fact{padding:9px 14px 9px 0;border-bottom:1px solid var(--rule)}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0 16px;border-top:1px solid var(--rule-mid);margin:0}
+@media (max-width:640px){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.fact{padding:9px 0;border-bottom:1px solid var(--rule)}
 .fact dt{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:1px}
 .fact dd{margin:0;font-size:13px;font-weight:700}
+.credit{margin:12px 0 0;font-size:11.5px;color:var(--muted);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.credit .lockup{color:var(--ink-2)}
 
 /* ===========================================================
-   SECTIONS
+   SECTIONS: one rhythm
    =========================================================== */
-section{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 62px)}
-.partline{margin:58px 0 24px;border-top:2px solid var(--ink);padding-top:7px;font-family:var(--sans)}
+main > section{margin-top:52px}
+main > section:first-of-type{margin-top:0}
+section{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 60px)}
+.partline{margin:64px 0 0;border-top:2px solid var(--ink);padding-top:8px;font-family:var(--sans)}
+.partline:first-of-type{margin-top:30px;border-top:0;padding-top:0}
 .partline span{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
-.partline:first-of-type{margin-top:4px}
+.partline + section{margin-top:18px}
 
-h2.sec{font-size:20px;margin:48px 0 0;padding-bottom:6px;border-bottom:1px solid var(--ink)}
-h2.sec:first-of-type{margin-top:0}
+h2.sec{font-size:20px;margin:0;padding-bottom:6px;border-bottom:1px solid var(--ink)}
 .sec-kicker{font-family:var(--sans);font-size:12px;color:var(--muted);margin:7px 0 18px;max-width:66ch}
 h3{font-size:15px;margin:30px 0 8px}
-h4{font-size:12px;margin:20px 0 6px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2)}
+h4{font-size:12px;margin:22px 0 7px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink)}
 
 ul,ol.plain{margin:0 0 1em;padding-left:1.2em}
 li{margin-bottom:.3em}
@@ -169,11 +181,11 @@ li::marker{color:var(--muted)}
 code{font-family:var(--mono);font-size:.88em;background:var(--sunken);padding:1px 4px}
 
 /* ===========================================================
-   CALLOUTS
+   CALLOUTS: rule = bordered white, warn = red border, note = paragraph
    =========================================================== */
 .box{margin:20px 0;padding:10px 14px 12px;border:1px solid var(--rule-mid);border-radius:2px;background:var(--paper)}
+.box.rule{border:1.5px solid var(--ink)}
 .box.warn{border-color:var(--red)}
-.box.rule{background:var(--sunken);border-color:var(--sunken)}
 .box > :last-child{margin-bottom:0}
 .lab{
   display:block;font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.08em;
@@ -181,16 +193,23 @@ code{font-family:var(--mono);font-size:.88em;background:var(--sunken);padding:1p
 }
 .box.warn .lab{color:var(--red)}
 .box.rule .lab{color:var(--ink)}
-.box.rule p{font-weight:400;line-height:1.55;max-width:66ch}
+.box.rule p{line-height:1.55;max-width:66ch}
 .box p,.box ul{max-width:68ch}
+p.note{max-width:66ch;margin:16px 0 18px}
+p.note .note-lab{font-family:var(--sans);font-size:13px}
 
 /* ===========================================================
-   JOURNAL ENTRIES: five columns, as in class
+   JOURNAL ENTRIES: five columns, working column gets the room
    =========================================================== */
-.je-wrap{margin:16px 0 22px;overflow-x:auto;border:1px solid var(--rule-mid);border-radius:2px}
+.je-wrap{margin:16px 0 22px;overflow-x:auto;border:1px solid var(--rule-mid);border-radius:2px;position:relative}
 .je-cap{
-  display:block;font-family:var(--sans);font-size:11.5px;font-weight:700;
-  padding:7px 10px;color:var(--ink-2);background:var(--sunken);border-bottom:1px solid var(--rule-mid);
+  display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+  font-family:var(--sans);font-size:12px;font-weight:700;
+  padding:7px 10px;color:var(--ink);border-bottom:1px solid var(--ink);
+}
+.scrollable > table > caption::after{float:right;margin-left:12px}
+.scrollable > .je-cap::after,.scrollable > table > caption::after{
+  content:"scroll \2192";flex:none;font-weight:400;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap;
 }
 .je{width:100%;min-width:640px;border-collapse:collapse;font-size:13px;font-family:var(--sans)}
 .je thead th{
@@ -200,15 +219,14 @@ code{font-family:var(--mono);font-size:.88em;background:var(--sunken);padding:1p
 .je thead th:last-child,.je td:last-child{border-right:0}
 .je td{padding:6px 10px;border-bottom:1px solid var(--rule);border-right:1px solid var(--rule);vertical-align:top;line-height:1.45}
 .je tbody tr:last-child td{border-bottom:0}
-.je td.ad{width:26%;color:var(--debit);font-weight:600}
-.je td.ac{width:26%;color:var(--credit)}
-.je td.nt{width:22%;color:var(--muted);font-size:11.5px;font-family:var(--serif);font-style:italic;background:var(--sunken)}
+.je td.ad{width:22%;color:var(--debit);font-weight:600}
+.je td.ac{width:22%;color:var(--credit)}
+.je td.nt{width:30%;color:var(--muted);font-size:11.5px;font-family:var(--serif);font-style:italic;background:var(--sunken)}
 .je th.n,.je td.n{text-align:right;white-space:nowrap;width:13%;font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:12.5px}
 .je th.n{font-family:var(--sans);font-size:10px}
-.je tr.tot td{border-top:1px solid var(--ink);font-weight:700;background:var(--sunken)}
+.je tr.tot td{border-top:1px solid var(--ink);font-weight:700}
 .je tr.tot td.nt{font-style:normal}
 
-/* small two-column lists (mini balance sheets) */
 .lst{width:100%;border-collapse:collapse;font-size:13px;font-family:var(--sans)}
 .lst td{padding:4px 8px 4px 0;border-bottom:1px solid var(--rule)}
 .lst tr:last-child td{border-bottom:0}
@@ -221,7 +239,7 @@ code{font-family:var(--mono);font-size:.88em;background:var(--sunken);padding:1p
    =========================================================== */
 .t-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin:18px 0 22px}
 .t{border:1px solid var(--rule-mid);border-radius:2px;font-family:var(--sans)}
-.t-name{font-size:11px;font-weight:700;padding:6px 8px;text-align:center;border-bottom:1px solid var(--ink);background:var(--sunken)}
+.t-name{font-size:11px;font-weight:700;padding:6px 8px;text-align:center;border-bottom:1px solid var(--ink)}
 .t-body{display:grid;grid-template-columns:1fr 1fr;font-family:var(--mono);font-size:11.5px;font-variant-numeric:tabular-nums}
 .t-side{padding:6px 8px;min-height:70px}
 .t-side:first-child{border-right:1px solid var(--ink)}
@@ -231,13 +249,13 @@ code{font-family:var(--mono);font-size:.88em;background:var(--sunken);padding:1p
 .t-row.bal{border-top:1px solid var(--rule-mid);margin-top:4px;padding-top:3px;font-weight:600}
 
 /* ===========================================================
-   TABLES
+   TABLES: caption is a title with a rule, not a grey bar
    =========================================================== */
-.tw{overflow-x:auto;margin:18px 0 22px;border:1px solid var(--rule-mid);border-radius:2px}
+.tw{overflow-x:auto;margin:18px 0 22px;border:1px solid var(--rule-mid);border-radius:2px;position:relative}
 table.data{width:100%;border-collapse:collapse;font-size:13px;font-family:var(--sans);min-width:min(100%,420px)}
 table.data caption{
-  font-size:11.5px;font-weight:700;text-align:left;padding:7px 10px;
-  color:var(--ink-2);background:var(--sunken);border-bottom:1px solid var(--rule-mid);
+  font-size:12px;font-weight:700;text-align:left;padding:7px 10px;
+  color:var(--ink);border-bottom:1px solid var(--ink);
 }
 table.data th{
   font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);
@@ -247,9 +265,9 @@ table.data td{padding:7px 10px;border-bottom:1px solid var(--rule);vertical-alig
 table.data tbody tr:last-child td{border-bottom:0}
 table.data td.n,table.data th.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap;font-size:12.5px}
 table.data th.n{font-family:var(--sans);font-size:10px}
-table.data tr.sum td{border-top:1px solid var(--ink);font-weight:700;background:var(--sunken)}
+table.data tr.sum td{border-top:1px solid var(--ink);font-weight:700}
 table.data td.lead{font-weight:600}
-table.data tr.grp td{background:var(--sunken);font-weight:700;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;padding:5px 10px;color:var(--ink-2)}
+table.data tr.grp td{font-weight:700;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;padding:5px 10px;color:var(--ink-2);border-bottom:1px solid var(--rule-mid)}
 .dr-t{color:var(--debit);font-weight:600}
 .cr-t{color:var(--credit)}
 .yes{font-weight:700}
@@ -286,11 +304,11 @@ table.data tr.grp td{background:var(--sunken);font-weight:700;font-size:10.5px;l
 .casc-row .op{width:13px;flex:none;color:var(--muted);font-family:var(--mono)}
 .casc-row .lbl{flex:1;min-width:0}
 .casc-row.minus .lbl{color:var(--credit)}
-.casc-row.res{font-weight:700;background:var(--sunken)}
+.casc-row.res{font-weight:700;border-top:1px solid var(--ink)}
 .casc-row .tagx{flex:none;font-size:11px;color:var(--muted);text-align:right;max-width:44%;font-family:var(--serif);font-style:italic}
 
 .tree{margin:18px 0 22px;border:1px solid var(--rule-mid);border-radius:2px;font-family:var(--sans)}
-.tree-q{font-size:13px;font-weight:700;padding:8px 10px;border-bottom:1px solid var(--ink);background:var(--sunken)}
+.tree-q{font-size:13px;font-weight:700;padding:8px 10px;border-bottom:1px solid var(--ink)}
 .tree-opts{display:grid;gap:0;grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
 .tree-opt{padding:10px 12px 12px;border-right:1px solid var(--rule)}
 .tree-opt:last-child{border-right:0}
@@ -307,8 +325,7 @@ table.data tr.grp td{background:var(--sunken);font-weight:700;font-size:10.5px;l
 
 .fx{
   font-family:var(--mono);font-size:12.5px;line-height:1.8;
-  background:var(--sunken);border-left:2px solid var(--ink);
-  padding:8px 12px;margin:16px 0;overflow-x:auto;
+  border-left:2px solid var(--ink);padding:6px 12px;margin:16px 0;overflow-x:auto;
 }
 .fx b{font-weight:700}
 
@@ -326,7 +343,7 @@ table.data tr.grp td{background:var(--sunken);font-weight:700;font-size:10.5px;l
 .tag.r{border-color:var(--red);color:var(--red)}
 
 /* ===========================================================
-   REVEALS, PRACTICE, EXERCISES
+   REVEALS, PRACTICE, EXERCISES: grey means clickable
    =========================================================== */
 details.rev{margin:16px 0;border:1px solid var(--rule-mid);border-radius:2px}
 details.rev > summary{
@@ -336,16 +353,16 @@ details.rev > summary{
 }
 details.rev > summary::-webkit-details-marker{display:none}
 details.rev > summary::before{content:"+";font-family:var(--mono);width:10px}
-details.rev[open] > summary::before{content:"\2013"}
+details.rev[open] > summary::before{content:"\2212"}
 details.rev > summary:hover{color:var(--ink)}
 .rev-body{padding:2px 12px 14px;border-top:1px solid var(--rule)}
 .rev-body > :first-child{margin-top:12px}
 .rev-body > :last-child{margin-bottom:0}
 
-details.practice{margin:26px 0 8px;border:1px solid var(--rule-mid);border-left:3px solid var(--red);border-radius:2px}
+details.practice{margin:26px 0 0;border:1px solid var(--rule-mid);border-left:3px solid var(--red);border-radius:2px}
 details.practice > summary{
   font-family:var(--sans);font-size:12px;font-weight:700;padding:8px 12px;cursor:pointer;list-style:none;
-  display:flex;align-items:center;gap:8px;color:var(--ink);
+  display:flex;align-items:center;gap:8px;color:var(--ink);background:var(--sunken);
 }
 details.practice > summary::-webkit-details-marker{display:none}
 details.practice > summary .pl{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--red)}
@@ -360,7 +377,7 @@ details.practice[open] > summary::after{content:"close"}
 .ex-head{padding:10px 14px 12px;border-bottom:1px solid var(--rule-mid);background:var(--sunken);font-family:var(--sans)}
 .ex-head .num{display:block;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--red);margin-bottom:3px}
 .ex-head h3{margin:0;font-size:16px}
-.ex-head .tests{margin:5px 0 0;font-size:11.5px;color:var(--muted);font-family:var(--serif);font-style:italic}
+.ex-head .tests{margin:5px 0 0;font-size:12px;color:var(--ink-2)}
 .ex-body{padding:4px 14px 14px}
 .ex-body > :first-child{margin-top:12px}
 
@@ -393,59 +410,80 @@ details.practice[open] > summary::after{content:"close"}
   margin:4px 0 16px;
 }
 .gl-search:focus{border-color:var(--ink);outline:none}
-table.gloss td:first-child{font-weight:600;width:42%}
-table.gloss td:nth-child(2){color:var(--red)}
+table.gloss td:nth-child(1){width:58px;font-weight:700}
+table.gloss td:nth-child(2){width:46%;color:var(--red)}
+table.gloss.two td:nth-child(1){width:46%;color:var(--red);font-weight:400;font-family:var(--sans);font-size:13px;text-align:left}
+table.gloss.two td:nth-child(2){width:auto;color:var(--ink)}
 tr[hidden]{display:none}
 .gl-count{font-family:var(--mono);font-size:11px;color:var(--muted);margin:0 0 12px}
+
+/* ---- back to top ---- */
+.totop{
+  position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:40;
+  font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.04em;
+  background:var(--paper);color:var(--ink-2);border:1px solid var(--rule-mid);border-radius:2px;
+  padding:6px 10px;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .15s;
+}
+.totop.show{opacity:1;pointer-events:auto}
+.totop:hover{border-color:var(--ink);color:var(--ink)}
 
 footer{
   max-width:1180px;margin:0 auto;padding:24px clamp(16px,4vw,36px) 50px;
   border-top:1px solid var(--ink);color:var(--muted);font-size:12.5px;
 }
 footer p{max-width:72ch}
+footer .lockup{color:var(--ink);margin-bottom:10px}
 
 @media print{
-  .topbar,.rail,.drill,.btn,.gl-search{display:none!important}
+  .topbar,.rail,.drill,.btn,.gl-search,.totop{display:none!important}
   .shell{grid-template-columns:1fr;padding:0}
   details.rev[open],.je-wrap,.ex-block,.tw{break-inside:avoid}
   h2.sec{break-after:avoid}
 }
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="mazen-mark" viewBox="0 0 100 110">
+    <path d="M6 8 L18 8 L50 56 L82 8 L94 8 L94 60 L84 60 L84 26 L56 68 L44 68 L16 26 L16 60 L6 60 Z"/>
+    <path d="M16 60 L50 104 L84 60 L72 60 L50 88 L28 60 Z"/>
+  </symbol>
+</svg>
+
 <div class="topbar">
   <div class="topbar-in">
-    <div class="brand">Accounting I <span>· Chapter 1 · study notes</span></div>
+    <div class="brand">
+      <span class="lockup" title="Prepared by MAZEN"><svg class="mark" aria-hidden="true"><use href="#mazen-mark"/></svg><span class="word">MAZEN</span></span>
+      <span class="sep"></span>
+      <span class="doc"><b>Accounting I</b> · Chapter 1 · study notes</span>
+    </div>
+    <button class="btn" id="navToggle" type="button" aria-pressed="true" aria-controls="railbody">Contents</button>
     <button class="btn" id="themeToggle" type="button" aria-pressed="false">Dark</button>
-    <button class="btn" id="openAll" type="button">Open all answers</button>
-    <button class="btn" id="closeAll" type="button">Close all</button>
+    <button class="btn" id="openAll" type="button" title="Open every answer and every practice block">Expand<span class="long"> all</span></button>
+    <button class="btn" id="closeAll" type="button" title="Close every answer and every practice block">Collapse<span class="long"> all</span></button>
   </div>
 </div>
 
-<div class="shell">
+<div class="shell" id="shell">
 
 <nav class="rail" aria-label="Contents">
-  <button class="btn railtoggle" id="navToggle" type="button" aria-expanded="false">Contents</button>
   <div class="railbody" id="railbody">
-    <div class="part">Part I · Foundations</div>
-    <ol>
+    <p class="rail-title">Contents</p>
+    <details class="navpart" open data-part="1"><summary>Part I · Foundations</summary><ol>
       <li><a href="#orientation">Exam and scope</a></li>
       <li><a href="#forms">Company forms</a></li>
       <li><a href="#law">Swiss accounting law</a></li>
-    </ol>
-    <div class="part">Part II · Statements</div>
-    <ol>
+    </ol></details>
+    <details class="navpart" data-part="2"><summary>Part II · Statements</summary><ol>
       <li><a href="#bs">Balance sheet</a></li>
       <li><a href="#pl">Profit and loss</a></li>
-    </ol>
-    <div class="part">Part III · The engine</div>
-    <ol>
+    </ol></details>
+    <details class="navpart" data-part="3"><summary>Part III · The engine</summary><ol>
       <li><a href="#compass">Debit and credit</a></li>
       <li><a href="#closing">Closing the accounts</a></li>
-    </ol>
-    <div class="part">Part IV · Slide 44</div>
-    <ol>
+    </ol></details>
+    <details class="navpart" data-part="4"><summary>Part IV · Slide 44</summary><ol>
       <li><a href="#vat">1 · VAT</a></li>
       <li><a href="#securities">2 · Securities</a></li>
       <li><a href="#wt">3 · Withholding tax</a></li>
@@ -458,11 +496,11 @@ footer p{max-width:72ch}
       <li><a href="#salaries">10 · Salaries</a></li>
       <li><a href="#fx">11 · Foreign currencies</a></li>
       <li><a href="#breakeven">12 · Profitability</a></li>
-    </ol>
-    <div class="part">Part V · Added</div>
-    <ol><li><a href="#hidden">Hidden reserves</a></li></ol>
-    <div class="part">Part VI · Exercises 1–9</div>
-    <ol>
+    </ol></details>
+    <details class="navpart" data-part="5"><summary>Part V · Added</summary><ol>
+      <li><a href="#hidden">Hidden reserves</a></li>
+    </ol></details>
+    <details class="navpart" data-part="6"><summary>Part VI · Exercises 1 to 9</summary><ol>
       <li><a href="#ex1">1 · Book or not</a></li>
       <li><a href="#ex2">2 · Journal and GL</a></li>
       <li><a href="#ex3">3 · Journal</a></li>
@@ -472,30 +510,30 @@ footer p{max-width:72ch}
       <li><a href="#ex7">7 · Fixed assets</a></li>
       <li><a href="#ex8">8 · Chestnut LTD</a></li>
       <li><a href="#ex9">9 · Hidden reserves</a></li>
-    </ol>
-    <div class="part">Part VII · Exam kit</div>
-    <ol>
+    </ol></details>
+    <details class="navpart" data-part="7"><summary>Part VII · Exam kit</summary><ol>
       <li><a href="#formulas">Formula sheet</a></li>
       <li><a href="#traps">The traps</a></li>
-      <li><a href="#glossary">EN–FR glossary</a></li>
+      <li><a href="#glossary">EN-FR glossary</a></li>
       <li><a href="#ahead">After the midterm</a></li>
-    </ol>
+    </ol></details>
   </div>
 </nav>
 
 <main>
 
 <header class="doc-head">
-  <div class="inst">Haute école de gestion de Genève · International Business Management · 2026–2027</div>
+  <div class="inst">Haute école de gestion de Genève · International Business Management · 2026-2027</div>
   <div class="course">Accounting I · Chapter 1 · Review of accounting fundamentals</div>
   <h1>Study notes and worked exercises</h1>
-  <p class="kind">The 141-slide deck condensed to its five ideas and twelve mechanisms, each taught once as the rule, the entry, a worked example and the trap, with a practice question after every section and all nine exercises solved. Underlined terms switch to French when clicked.</p>
+  <p class="kind">The 141-slide deck condensed to its five ideas and twelve mechanisms, each taught once as the rule, the entry, a worked example and the trap, with a practice question after every section and all nine exercises solved. Dotted terms switch to French when clicked.</p>
   <dl class="facts">
-    <div class="fact"><dt>Midterm</dt><dd>Week 7 · 26–30 Oct 2026</dd></div>
+    <div class="fact"><dt>Midterm</dt><dd>Week 7 · 26 to 30 Oct 2026</dd></div>
     <div class="fact"><dt>Slide 44 scope</dt><dd>10 of 12 examined, learn all 12</dd></div>
     <div class="fact"><dt>Final exam</dt><dd>100% · 120 min · January</dd></div>
     <div class="fact"><dt>Allowed</dt><dd>Calculator only</dd></div>
   </dl>
+  <p class="credit"><span class="lockup"><svg class="mark" aria-hidden="true"><use href="#mazen-mark"/></svg><span class="word">MAZEN</span></span><span>Prepared by Marc Valiyev. Free for HEG students to use and share.</span></p>
 </header>
 <div class="partline"><span>Part I · Foundations</span></div>
 
@@ -537,13 +575,10 @@ footer p{max-width:72ch}
 
 <h3>Studying in French</h3>
 <div class="prose">
-<p>You learned this material in French and will be examined in English. Every term with a <span data-fr="soulignement pointillé">dotted underline</span> is bilingual: click it and it switches to French; click again for English. Nothing else on the page moves, so you can check a single word without losing your place. The <a href="#glossary">EN–FR glossary</a> at the end is your course's official chart of accounts, searchable in both languages, and Cyberlearn hosts the same chart under Course organization.</p>
+<p>You learned this material in French and will be examined in English. Every term with a <span data-fr="soulignement pointillé">dotted underline</span> is bilingual: click it and it switches to French; click again for English. Nothing else on the page moves, so you can check a single word without losing your place. The <a href="#glossary">EN-FR glossary</a> at the end is your course's official chart of accounts, searchable in both languages, and Cyberlearn hosts the same chart under Course organization.</p>
 </div>
 
-<div class="box">
-<span class="lab">How journal entries are laid out here</span>
-<p style="margin:0">Five columns, in the order used in class: the <strong>account debited</strong>, the <strong>account credited</strong>, a <strong>working</strong> column for the calculation or a short note, then the <strong>debit</strong> and <strong>credit</strong> amounts. The credited account is always in red so the two sides read at a glance.</p>
-</div>
+<p class="note"><strong class="note-lab">How journal entries are laid out here.</strong> Five columns, in the order used in class: the <strong>account debited</strong>, the <strong>account credited</strong>, a <strong>working</strong> column for the calculation or a short note, then the <strong>debit</strong> and <strong>credit</strong> amounts. The credited account is always in red so the two sides read at a glance.</p>
 </section>
 
 <section id="forms">
@@ -669,10 +704,7 @@ footer p{max-width:72ch}
 <div class="mini"><h5>Preservation</h5><p>art. 958f: statements, appendices and supporting documents kept <strong>10 years</strong>.</p></div>
 </div>
 
-<div class="box">
-<span class="lab">Where non-compensation bites</span>
-<p style="margin:0">It is why VAT due and VAT recoverable are <em>two separate accounts</em> during the period rather than one net figure, and why a provision on receivables is a liability account shown in deduction of the asset, rather than simply a smaller receivable.</p>
-</div>
+<p class="note"><strong class="note-lab">Where non-compensation bites.</strong> It is why VAT due and VAT recoverable are <em>two separate accounts</em> during the period rather than one net figure, and why a provision on receivables is a liability account shown in deduction of the asset, rather than simply a smaller receivable.</p>
 
 <div class="drill" id="drill-law">
 <div class="drill-head"><h4>Quick check · foundations</h4><span class="drill-score" id="score-law">0 / 0</span></div>
@@ -703,7 +735,7 @@ footer p{max-width:72ch}
 
 <section id="bs">
 <h2 class="sec">The balance sheet</h2>
-<p class="sec-kicker">art. 959–959a CO · a photograph at a single instant, e.g. 31.12.20XX</p>
+<p class="sec-kicker">art. 959-959a CO · a photograph at a single instant, e.g. 31.12.20XX</p>
 
 <div class="prose">
 <p>The <span data-fr="bilan">balance sheet</span> answers one question: <em>what does the company have, and who has a claim on it?</em> Three things: <span data-fr="actifs">assets</span> (resources controlled by the company that will generate future benefits), <span data-fr="passifs / dettes">liabilities</span> (debt obligations owed to third parties) and <span data-fr="capitaux propres">equity</span> (wealth at the company's disposal for distribution and investment).</p>
@@ -910,10 +942,7 @@ footer p{max-width:72ch}
 </table>
 </div>
 
-<div class="box">
-<span class="lab">More than two accounts is normal</span>
-<p style="margin:0">Entry 3 uses three. The only unbreakable rule is <strong>total debits = total credits</strong>. Whenever an entry involves a gain or a loss, that figure is almost always the one you compute <em>last</em>, to make both sides balance.</p>
-</div>
+<p class="note"><strong class="note-lab">More than two accounts is normal.</strong> Entry 3 uses three. The only unbreakable rule is <strong>total debits = total credits</strong>. Whenever an entry involves a gain or a loss, that figure is almost always the one you compute <em>last</em>, to make both sides balance.</p>
 
 <div class="drill" id="drill-dc">
 <div class="drill-head"><h4>Drill · which side?</h4><span class="drill-score" id="score-dc">0 / 0</span></div>
@@ -999,10 +1028,7 @@ footer p{max-width:72ch}
 </div></div>
 </div>
 
-<div class="box">
-<span class="lab">How to read a T-account balance</span>
-<p style="margin:0">The balance goes on the <em>weaker</em> side, to make both columns total the same. An account with more debits than credits has a <strong>debit balance</strong>, and the balancing figure is written on the credit side. That is why "bal. 95’000" sits on the right of Bank even though Bank is a debit-balance asset.</p>
-</div>
+<p class="note"><strong class="note-lab">How to read a T-account balance.</strong> The balance goes on the <em>weaker</em> side, to make both columns total the same. An account with more debits than credits has a <strong>debit balance</strong>, and the balancing figure is written on the credit side. That is why "bal. 95’000" sits on the right of Bank even though Bank is a debit-balance asset.</p>
 
 <h4>Step 2 · copy the balances into the statements</h4>
 <div class="cols">
@@ -1074,10 +1100,7 @@ footer p{max-width:72ch}
 </table>
 </div>
 
-<div class="box">
-<span class="lab">Exonerated is not the same as excluded</span>
-<p style="margin:0"><strong>Exonerated</strong> (0%): no VAT charged, but the company can still <em>recover</em> its input VAT. <strong>Excluded</strong>: outside the scope entirely, so no VAT charged and no input VAT recovery. On an exam, export sales are exonerated; a rental invoice is excluded.</p>
-</div>
+<p class="note"><strong class="note-lab">Exonerated is not the same as excluded.</strong> <strong>Exonerated</strong> (0%): no VAT charged, but the company can still <em>recover</em> its input VAT. <strong>Excluded</strong>: outside the scope entirely, so no VAT charged and no input VAT recovery. On an exam, export sales are exonerated; a rental invoice is excluded.</p>
 
 <div class="prose">
 <p>Collecting VAT becomes compulsory at <strong>100’000 CHF of sales</strong> over 12 months, applied proportionally, so 50’000 CHF in 6 months also triggers it. Below that, registration is voluntary.</p>
@@ -1312,10 +1335,7 @@ footer p{max-width:72ch}
 </table>
 </div>
 
-<div class="box">
-<span class="lab">Always start from the gross</span>
-<p style="margin:0">Revenue is recorded <strong>gross</strong>. The 35% is then split off into the receivable, and the bank line is the remainder. If a question gives you the <em>net</em> amount received, gross it up first: gross = net ÷ 65%.</p>
-</div>
+<p class="note"><strong class="note-lab">Always start from the gross.</strong> Revenue is recorded <strong>gross</strong>. The 35% is then split off into the receivable, and the bank line is the remainder. If a question gives you the <em>net</em> amount received, gross it up first: gross = net ÷ 65%.</p>
 
 <div class="je-wrap">
 <span class="je-cap">Swatch's books · the mirror image, distributing the same dividend</span>
@@ -1365,10 +1385,7 @@ footer p{max-width:72ch}
 <p>Note the asymmetry Swiss law allows: an unjustified provision may be <em>maintained</em> in the balance sheet. That is deliberate, and it is the legal doorway to hidden reserves in Part V.</p>
 </div>
 
-<div class="box">
-<span class="lab">The word your French course uses</span>
-<p style="margin:0">The provision on receivables is the <strong>ducroire</strong>. In the official chart it is account <strong>1109</strong>, <em>corrections de la valeur (incl. ducroire)</em>, sitting against trade receivables <strong>1100</strong>. The matching P&amp;L account is <strong>3805</strong>, <em>pertes sur clients, variation du ducroire</em>. Note the pattern: an account number ending in 9 is always a <em>correction de valeur</em> placed against the account above it.</p>
-</div>
+<p class="note"><strong class="note-lab">The word your French course uses.</strong> The provision on receivables is the <strong>ducroire</strong>. In the official chart it is account <strong>1109</strong>, <em>corrections de la valeur (incl. ducroire)</em>, sitting against trade receivables <strong>1100</strong>. The matching P&amp;L account is <strong>3805</strong>, <em>pertes sur clients, variation du ducroire</em>. Note the pattern: an account number ending in 9 is always a <em>correction de valeur</em> placed against the account above it.</p>
 
 <div class="je-wrap">
 <span class="je-cap">Creating or increasing a provision on AR (debit 3805, credit 1109)</span>
@@ -1588,10 +1605,7 @@ footer p{max-width:72ch}
 </table>
 </div>
 
-<div class="box">
-<span class="lab">Why FIFO leaves the largest value under inflation</span>
-<p style="margin:0">If prices rise, the cheap old units are the ones that leave, so the expensive new ones remain on the shelf. LIFO does the opposite. WAC blends them and always lands between the two. If your answer puts FIFO below LIFO, check whether prices in the question were <em>falling</em>. In this example they move both ways, which is why the gap is small.</p>
-</div>
+<p class="note"><strong class="note-lab">Why FIFO leaves the largest value under inflation.</strong> If prices rise, the cheap old units are the ones that leave, so the expensive new ones remain on the shelf. LIFO does the opposite. WAC blends them and always lands between the two. If your answer puts FIFO below LIFO, check whether prices in the question were <em>falling</em>. In this example they move both ways, which is why the gap is small.</p>
 
 <h3>COGS and gross margin</h3>
 <div class="casc">
@@ -1631,10 +1645,7 @@ footer p{max-width:72ch}
 <p>Anything the owner takes or receives that is not business-related is booked to a dedicated <span data-fr="compte de l’exploitant">owner's account</span>, one per owner. Its balance says whether the owner owes the company money or the reverse.</p>
 </div>
 
-<div class="box">
-<span class="lab">The account in the official chart</span>
-<p style="margin:0">In a raison individuelle it is <strong>2850</strong>, <em>prélèvements en espèces ou en nature (Privé)</em>. In a partnership each associate has a <em>compte privé</em> at <strong>2820</strong>. The word "Privé" is the giveaway: this account exists precisely to separate private consumption from business activity.</p>
-</div>
+<p class="note"><strong class="note-lab">The account in the official chart.</strong> In a raison individuelle it is <strong>2850</strong>, <em>prélèvements en espèces ou en nature (Privé)</em>. In a partnership each associate has a <em>compte privé</em> at <strong>2820</strong>. The word "Privé" is the giveaway: this account exists precisely to separate private consumption from business activity.</p>
 
 <div class="box rule">
 <span class="lab">Which side of the balance sheet</span>
@@ -1663,10 +1674,7 @@ footer p{max-width:72ch}
 </table>
 </div>
 
-<div class="box">
-<span class="lab">The pattern</span>
-<p style="margin:0">The owner's account is almost always <strong>debited</strong>, against a revenue account. The company records the benefit as if sold at normal value and charges it to the owner. That keeps the P&amp;L honest and stops private consumption from quietly reducing taxable profit.</p>
-</div>
+<p class="note"><strong class="note-lab">The pattern.</strong> The owner's account is almost always <strong>debited</strong>, against a revenue account. The company records the benefit as if sold at normal value and charges it to the owner. That keeps the P&amp;L honest and stops private consumption from quietly reducing taxable profit.</p>
 
 <details class="practice">
 <summary><span class="pl">Practice</span> The owner takes goods</summary>
@@ -1799,10 +1807,7 @@ footer p{max-width:72ch}
 </table>
 </div>
 
-<div class="box">
-<span class="lab">Sliding-scale never reaches zero</span>
-<p style="margin:0">A percentage of a remaining value always leaves a remainder. That is mathematically correct and expected. Do not "fix" it.</p>
-</div>
+<p class="note"><strong class="note-lab">Sliding-scale never reaches zero.</strong> A percentage of a remaining value always leaves a remainder. That is mathematically correct and expected. Do not "fix" it.</p>
 
 <h4>Double-declining / accelerated</h4>
 <div class="fx">D&amp;A = <b>(2 × straight-line rate) × residual value</b>, then <b>50% in each of the last two years</b></div>
@@ -1920,10 +1925,7 @@ footer p{max-width:72ch}
 </table>
 </div>
 
-<div class="box">
-<span class="lab">How to build this table in the exam</span>
-<p style="margin:0">Work left to right, one row at a time. <strong>Interest</strong> = rate × the previous row's closing debt, so 19’750 = 3.95% × 500’000. <strong>Amortization</strong> = annuity − interest. <strong>Closing debt</strong> = previous closing − amortization. Never compute interest on the original principal after year 1.</p>
-</div>
+<p class="note"><strong class="note-lab">How to build this table in the exam.</strong> Work left to right, one row at a time. <strong>Interest</strong> = rate × the previous row's closing debt, so 19’750 = 3.95% × 500’000. <strong>Amortization</strong> = annuity − interest. <strong>Closing debt</strong> = previous closing − amortization. Never compute interest on the original principal after year 1.</p>
 
 <div class="je-wrap">
 <span class="je-cap">The first annuity, 31.12.20_1 · one payment, two natures</span>
@@ -2039,10 +2041,7 @@ footer p{max-width:72ch}
 
 <div class="fx">Accrual amount = <b>total amount × months belonging to the other period ÷ 12</b></div>
 
-<div class="box">
-<span class="lab">The four official accounts</span>
-<p style="margin:0">Your chart groups them as <strong>130 actifs de régularisation</strong> (1300 charges payées d’avance, 1301 produits à recevoir) and <strong>230 passifs de régularisation</strong> (2300 charges à payer, 2301 produits encaissés d’avance). If you can place a situation into one of those four numbers, the entry writes itself.</p>
-</div>
+<p class="note"><strong class="note-lab">The four official accounts.</strong> Your chart groups them as <strong>130 actifs de régularisation</strong> (1300 charges payées d’avance, 1301 produits à recevoir) and <strong>230 passifs de régularisation</strong> (2300 charges à payer, 2301 produits encaissés d’avance). If you can place a situation into one of those four numbers, the entry writes itself.</p>
 
 <details class="practice">
 <summary><span class="pl">Practice</span> Rent across the year end</summary>
@@ -2237,10 +2236,7 @@ footer p{max-width:72ch}
 </table>
 </div>
 
-<div class="box">
-<span class="lab">Two questions, in this order</span>
-<p style="margin:0"><strong>1.</strong> Cash or transfer? That picks the bank note row or the currency row. <strong>2.</strong> Am I buying or selling foreign currency? Buying means the bank sells, so take the ask, the higher number; selling means the bank buys, so take the bid, the lower number. The bank always wins the spread, so if your answer gives the company the better of the two rates, you picked the wrong one.</p>
-</div>
+<p class="note"><strong class="note-lab">Two questions, in this order.</strong> <strong>1.</strong> Cash or transfer? That picks the bank note row or the currency row. <strong>2.</strong> Am I buying or selling foreign currency? Buying means the bank sells, so take the ask, the higher number; selling means the bank buys, so take the bid, the lower number. The bank always wins the spread, so if your answer gives the company the better of the two rates, you picked the wrong one.</p>
 
 <details class="practice">
 <summary><span class="pl">Practice</span> Receiving dollars</summary>
@@ -2309,10 +2305,7 @@ footer p{max-width:72ch}
 </table>
 </div>
 
-<div class="box">
-<span class="lab">Converting between the two answers</span>
-<p style="margin:0">Break-even in units × sale price = break-even in sales, so 2’500’000 × 2.00 = 5’000’000. If you only remember one formula, remember the units one and multiply.</p>
-</div>
+<p class="note"><strong class="note-lab">Converting between the two answers.</strong> Break-even in units × sale price = break-even in sales, so 2’500’000 × 2.00 = 5’000’000. If you only remember one formula, remember the units one and multiply.</p>
 
 <h3>The break-even date</h3>
 <div class="prose">
@@ -2379,10 +2372,7 @@ footer p{max-width:72ch}
 <h2 class="sec">Hidden reserves</h2>
 <p class="sec-kicker">Absent from your Chapter 1 slides, yet Exercise 9 is entirely about it, and the course overview lists it under "accounting fundamentals"</p>
 
-<div class="box">
-<span class="lab">Why this section exists</span>
-<p style="margin:0">The Chapter 1 deck never mentions hidden reserves, yet Exercise 9 asks you to compute them, restate a balance sheet at fair value and journalise the transition. The concept follows directly from two rules you have already met, <em>assets are recorded at acquisition cost</em> and <em>in doubt, be conservative</em>, so it is written up here from first principles. Check the detail against your professor's own treatment when they cover it.</p>
-</div>
+<p class="note"><strong class="note-lab">Why this section exists.</strong> The Chapter 1 deck never mentions hidden reserves, yet Exercise 9 asks you to compute them, restate a balance sheet at fair value and journalise the transition. The concept follows directly from two rules you have already met, <em>assets are recorded at acquisition cost</em> and <em>in doubt, be conservative</em>, so it is written up here from first principles. Check the detail against your professor's own treatment when they cover it.</p>
 
 <div class="prose">
 <p>A <span data-fr="réserve latente">hidden reserve</span> is equity that exists economically but does not appear in the balance sheet. It arises whenever the books are deliberately more pessimistic than reality.</p>
@@ -2570,10 +2560,7 @@ footer p{max-width:72ch}
 <span class="lab">The distinction that decides 5 versus 7</span>
 <p style="margin:0">An <strong>overdraft limit</strong> is a facility sitting unused: the bank promises to lend if you need it, and nothing has moved. A <strong>loan granted</strong> is money actually handed over and credited to your account. The first is a commitment, the second is a transaction. This pair is the heart of the exercise, and it is easy to get backwards by over-thinking the link to question 8.</p>
 </div>
-<div class="box">
-<span class="lab">And the pair 3 versus 11</span>
-<p style="margin:0">Question 11 says "purchase of goods", which means the goods arrived. Question 3 says "purchase order", which normally means they have not. Because the payment term makes question 3 sound like a real purchase, your professor accepts both readings. Question 2, with no such ambiguity, is a clean NO.</p>
-</div>
+<p class="note"><strong class="note-lab">And the pair 3 versus 11.</strong> Question 11 says "purchase of goods", which means the goods arrived. Question 3 says "purchase order", which normally means they have not. Because the payment term makes question 3 sound like a real purchase, your professor accepts both readings. Question 2, with no such ambiguity, is a clean NO.</p>
 </div>
 </details>
 </div>
@@ -2787,10 +2774,7 @@ footer p{max-width:72ch}
 </table>
 </div>
 
-<div class="box">
-<span class="lab">A naming convention worth copying</span>
-<p style="margin:0">The official solution writes <strong>Supplier Blanc LTD</strong> and <strong>Client Curti LLC, Geneva</strong> rather than a generic AP or AR. In Swiss practice each customer and supplier has its own sub-account in the ledger. When an exercise names the counterparty, name the account.</p>
-</div>
+<p class="note"><strong class="note-lab">A naming convention worth copying.</strong> The official solution writes <strong>Supplier Blanc LTD</strong> and <strong>Client Curti LLC, Geneva</strong> rather than a generic AP or AR. In Swiss practice each customer and supplier has its own sub-account in the ledger. When an exercise names the counterparty, name the account.</p>
 
 <h4>9 · Gross margin</h4>
 <div class="fx">Gross margin = 30’000 − 25’000 = <b>5’000 CHF</b> &nbsp;·&nbsp; as a percentage, 5’000 ÷ 30’000 = 16.67%</div>
@@ -2919,10 +2903,7 @@ footer p{max-width:72ch}
 <p><strong>(a) = account 1170</strong>, <em>impôt préalable sur matériel, marchandises, prestations et énergie</em>: VAT on merchandise bought for resale. <strong>(b) = account 1171</strong>, <em>impôt préalable sur investissements et autres charges d’exploitation</em>: VAT on fixed assets and on running costs. The exercise's (a) and (b) are literally these two numbers from your chart of accounts.</p>
 </div>
 
-<div class="box">
-<span class="lab">Work in this order, every time</span>
-<p style="margin:0"><strong>1.</strong> Which rate? 8.1 normal, 2.6 food and books and medicine, 3.8 lodging, 0 export, none for taxes and rent. <strong>2.</strong> Is the figure incl. or excl.? <strong>3.</strong> Which VAT account: due, (a) or (b)?</p>
-</div>
+<p class="note"><strong class="note-lab">Work in this order, every time.</strong> <strong>1.</strong> Which rate? 8.1 normal, 2.6 food and books and medicine, 3.8 lodging, 0 export, none for taxes and rent. <strong>2.</strong> Is the figure incl. or excl.? <strong>3.</strong> Which VAT account: due, (a) or (b)?</p>
 
 <details class="rev">
 <summary>Show solution: entries 1 to 9</summary>
@@ -3000,10 +2981,7 @@ footer p{max-width:72ch}
 <p style="margin:0"><strong>Entry 9</strong> is the only price given <em>excluding</em> VAT, so multiply by 8.1% rather than dividing. It is also a fixed-asset disposal, so the furniture leaves at its 6’000 book value and the 4’000 difference is a gain, not revenue. <strong>Entry 5</strong> has no VAT at all, because taxes are excluded from the scope.</p>
 </div>
 
-<div class="box">
-<span class="lab">Inventory variation, which way round?</span>
-<p style="margin:0">Inventory <strong>up</strong> means you bought more than you sold, so the period's cost was overstated: credit inventory variation, reducing the expense. Inventory <strong>down</strong> means you sold from stock: debit inventory variation, increasing the expense. Entries 16 and 17 are the two directions.</p>
-</div>
+<p class="note"><strong class="note-lab">Inventory variation, which way round?</strong> Inventory <strong>up</strong> means you bought more than you sold, so the period's cost was overstated: credit inventory variation, reducing the expense. Inventory <strong>down</strong> means you sold from stock: debit inventory variation, increasing the expense. Entries 16 and 17 are the two directions.</p>
 </div>
 </details>
 </div>
@@ -3019,10 +2997,7 @@ footer p{max-width:72ch}
 </div>
 <div class="ex-body">
 
-<div class="box">
-<span class="lab">Read the chart of accounts first, it tells you the treatment</span>
-<p style="margin:0">The exercise supplies <strong>Handling charges</strong> as a separate account, so transaction costs are <em>expensed</em> and never added to the securities. It also supplies both <strong>Realized</strong> and <strong>Unrealized gains/losses on quotations</strong>, which is why entries 10 and 11 give you three different prices per share.</p>
-</div>
+<p class="note"><strong class="note-lab">Read the chart of accounts first, it tells you the treatment.</strong> The exercise supplies <strong>Handling charges</strong> as a separate account, so transaction costs are <em>expensed</em> and never added to the securities. It also supplies both <strong>Realized</strong> and <strong>Unrealized gains/losses on quotations</strong>, which is why entries 10 and 11 give you three different prices per share.</p>
 
 <div class="box rule">
 <span class="lab">Three reflexes for this exercise</span>
@@ -3061,10 +3036,7 @@ footer p{max-width:72ch}
 </tbody>
 </table>
 </div>
-<div class="box">
-<span class="lab">Why entry 4's accrued interest goes to <em>charges</em></span>
-<p style="margin:0">You reimburse the seller for 10 months of interest they earned. Later, entry 5 credits you with the <em>full</em> 12-month coupon as revenue. The 1’000 debit cancels the part you did not earn, leaving 200 of genuine revenue for your 2 months of holding.</p>
-</div>
+<p class="note"><strong class="note-lab">Why entry 4's accrued interest goes to <em>charges</em>.</strong> You reimburse the seller for 10 months of interest they earned. Later, entry 5 credits you with the <em>full</em> 12-month coupon as revenue. The 1’000 debit cancels the part you did not earn, leaving 200 of genuine revenue for your 2 months of holding.</p>
 </div>
 </details>
 
@@ -3122,10 +3094,7 @@ footer p{max-width:72ch}
 </table>
 </div>
 
-<div class="box">
-<span class="lab">What entries 10b and 11b actually do</span>
-<p style="margin:0">They do not change this year's total profit, they <strong>reclassify</strong>. The gain or loss previously reported as unrealized moves into the realized column now that the shares have genuinely been sold. If your professor wants the simple version, the (a) entries alone are complete and the profit is the same.</p>
-</div>
+<p class="note"><strong class="note-lab">What entries 10b and 11b actually do.</strong> They do not change this year's total profit, they <strong>reclassify</strong>. The gain or loss previously reported as unrealized moves into the realized column now that the shares have genuinely been sold. If your professor wants the simple version, the (a) entries alone are complete and the profit is the same.</p>
 
 <p><strong>12 · Coupons on 10 bonds Z.</strong> Nominal 5’000 each, rate 6%.</p>
 <div class="je-wrap">
@@ -3303,10 +3272,7 @@ footer p{max-width:72ch}
 </table>
 </div>
 <div class="fx">4’000’000 + 10’000 − 2’000’000 − 50’000 − 1’300’000 = <b>660’000 CHF</b></div>
-<div class="box">
-<span class="lab">The logic of a current account</span>
-<p style="margin:0">Everything the buyer <em>takes on</em>, whether a debt, accrued interest or a loan from the vendor, <strong>reduces</strong> the cash still owed. Everything the buyer <em>receives</em>, the building and the fuel, increases it. The two sets of books are exact mirrors: what is a debit in one is a credit in the other, and both settle at 660’000.</p>
-</div>
+<p class="note"><strong class="note-lab">The logic of a current account.</strong> Everything the buyer <em>takes on</em>, whether a debt, accrued interest or a loan from the vendor, <strong>reduces</strong> the cash still owed. Everything the buyer <em>receives</em>, the building and the fuel, increases it. The two sets of books are exact mirrors: what is a debit in one is a credit in the other, and both settle at 660’000.</p>
 </div>
 </details>
 
@@ -3440,10 +3406,7 @@ footer p{max-width:72ch}
 </tbody>
 </table>
 </div>
-<div class="box">
-<span class="lab">Two internal checks that confirm the data</span>
-<p style="margin:0">The opening accrual of <strong>3’000</strong> equals 100’000 × 4% × 9/12, the nine months of bond interest earned in 20_0 after the 31 March coupon. The opening accrual of <strong>4’000</strong> equals 200’000 × 6% × 4/12, the four months of loan interest from 1 September to 31 December 20_0. The exercise is internally consistent, which means your closing accruals in entries 14 and 15 should produce the very same figures.</p>
-</div>
+<p class="note"><strong class="note-lab">Two internal checks that confirm the data.</strong> The opening accrual of <strong>3’000</strong> equals 100’000 × 4% × 9/12, the nine months of bond interest earned in 20_0 after the 31 March coupon. The opening accrual of <strong>4’000</strong> equals 200’000 × 6% × 4/12, the four months of loan interest from 1 September to 31 December 20_0. The exercise is internally consistent, which means your closing accruals in entries 14 and 15 should produce the very same figures.</p>
 </div>
 </details>
 
@@ -3661,10 +3624,7 @@ footer p{max-width:72ch}
 </tbody>
 </table>
 </div>
-<div class="box">
-<span class="lab">And the legal footnote</span>
-<p style="margin:0">Here hidden reserves <em>increased</em> by 106’000 over the year, so the company created rather than dissolved them and no appendix disclosure under art. 959c is triggered. Disclosure is required only when a <strong>net dissolution</strong> improves the reported result.</p>
-</div>
+<p class="note"><strong class="note-lab">And the legal footnote.</strong> Here hidden reserves <em>increased</em> by 106’000 over the year, so the company created rather than dissolved them and no appendix disclosure under art. 959c is triggered. Disclosure is required only when a <strong>net dissolution</strong> improves the reported result.</p>
 </div>
 </details>
 </div>
@@ -3810,7 +3770,7 @@ footer p{max-width:72ch}
 </section>
 
 <section id="glossary">
-<h2 class="sec">EN–FR glossary and chart of accounts</h2>
+<h2 class="sec">EN-FR glossary and chart of accounts</h2>
 <p class="sec-kicker">Swiss Chart of Accounts for SMEs, abridged for schools · Éditions LEP 2014 · the version on your Cyberlearn under Course organization</p>
 
 <div class="prose">
@@ -3843,8 +3803,8 @@ footer p{max-width:72ch}
 <tr><td class="n">1110</td><td>Créances envers des participations</td><td>Receivables from shareholdings</td></tr>
 <tr><td class="n">1140</td><td>Prêts</td><td>Loans</td></tr>
 <tr><td class="n">1149</td><td>Corrections de la valeur des avances et prêts</td><td>Loans allowance</td></tr>
-<tr><td class="n">1170</td><td><strong>Impôt préalable : TVA s/matériel, marchandises, prestations et énergie</strong></td><td><strong>Prepaid VAT: material, goods, services and energy</strong></td></tr>
-<tr><td class="n">1171</td><td><strong>Impôt préalable : TVA s/investissements et autres charges d’exploitation</strong></td><td><strong>Prepaid VAT: investments and other operating expenses</strong></td></tr>
+<tr><td class="n">1170</td><td><strong>Impôt préalable : TVA s/matériel, marchandises, prestations et énergie</strong></td><td><strong>Prepaid VAT: material, goods, services and energy</strong></td></tr>
+<tr><td class="n">1171</td><td><strong>Impôt préalable : TVA s/investissements et autres charges d’exploitation</strong></td><td><strong>Prepaid VAT: investments and other operating expenses</strong></td></tr>
 <tr><td class="n">1176</td><td>Impôt anticipé à récupérer</td><td>Prepaid tax (withholding tax recoverable)</td></tr>
 <tr><td class="n">1180</td><td>Créances envers les assurances sociales et institutions de prévoyance</td><td>Receivables from social insurance and pension schemes</td></tr>
 <tr><td class="n">1188</td><td>Compte courant Impôt à la source</td><td>Current account withholding tax</td></tr>
@@ -3995,71 +3955,71 @@ footer p{max-width:72ch}
 </div>
 
 <div class="tw">
-<table class="data gloss">
+<table class="data gloss two">
 <caption>Concepts and exam vocabulary not in the chart</caption>
-<thead><tr><th class="n"></th><th>Français</th><th>English</th></tr></thead>
+<thead><tr><th>Français</th><th>English</th></tr></thead>
 <tbody>
-<tr><td class="n"></td><td>Bilan</td><td>Balance sheet</td></tr>
-<tr><td class="n"></td><td>Compte de résultat / compte de profits et pertes</td><td>Income statement / profit and loss</td></tr>
-<tr><td class="n"></td><td>Annexe</td><td>Appendix (notes)</td></tr>
-<tr><td class="n"></td><td>Tableau de flux de trésorerie</td><td>Cash flow statement</td></tr>
-<tr><td class="n"></td><td>Écriture comptable</td><td>Journal entry</td></tr>
-<tr><td class="n"></td><td>Grand livre</td><td>General ledger</td></tr>
-<tr><td class="n"></td><td>Compte en T</td><td>T-account</td></tr>
-<tr><td class="n"></td><td>Débit / Crédit</td><td>Debit / Credit</td></tr>
-<tr><td class="n"></td><td>Comptabilité en partie double</td><td>Double-entry bookkeeping</td></tr>
-<tr><td class="n"></td><td>Solde</td><td>Balance</td></tr>
-<tr><td class="n"></td><td>Bouclement / clôture</td><td>Closing</td></tr>
-<tr><td class="n"></td><td>Plan comptable</td><td>Chart of accounts</td></tr>
-<tr><td class="n"></td><td>Liquidité / exigibilité</td><td>Liquidity / exigibility</td></tr>
-<tr><td class="n"></td><td>Valeur d’acquisition</td><td>Acquisition cost</td></tr>
-<tr><td class="n"></td><td>Valeur nominale</td><td>Nominal value</td></tr>
-<tr><td class="n"></td><td>Valeur comptable nette</td><td>Net book value</td></tr>
-<tr><td class="n"></td><td>Valeur vénale / valeur réelle</td><td>Fair value / real value</td></tr>
-<tr><td class="n"></td><td>Réserves latentes</td><td>Hidden reserves</td></tr>
-<tr><td class="n"></td><td>Dissolution de réserves latentes</td><td>Dissolution of hidden reserves</td></tr>
-<tr><td class="n"></td><td>Valeur nette de réalisation</td><td>Net realisable value (NRV)</td></tr>
-<tr><td class="n"></td><td>Coût moyen pondéré (CMP)</td><td>Weighted average cost (WAC)</td></tr>
-<tr><td class="n"></td><td>PEPS (premier entré, premier sorti)</td><td>FIFO (first in, first out)</td></tr>
-<tr><td class="n"></td><td>DEPS (dernier entré, premier sorti)</td><td>LIFO (last in, first out)</td></tr>
-<tr><td class="n"></td><td>Inventaire permanent / périodique</td><td>Perpetual / periodic inventory</td></tr>
-<tr><td class="n"></td><td>Coût des marchandises vendues</td><td>Cost of goods sold (COGS)</td></tr>
-<tr><td class="n"></td><td>Marge brute</td><td>Gross margin</td></tr>
-<tr><td class="n"></td><td>Amortissement linéaire</td><td>Straight-line depreciation</td></tr>
-<tr><td class="n"></td><td>Amortissement dégressif</td><td>Sliding-scale / declining balance depreciation</td></tr>
-<tr><td class="n"></td><td>Méthode directe / indirecte</td><td>Direct / indirect method</td></tr>
-<tr><td class="n"></td><td>Durée d’utilisation</td><td>Useful life</td></tr>
-<tr><td class="n"></td><td>Valeur résiduelle</td><td>Residual value</td></tr>
-<tr><td class="n"></td><td>Dépréciation</td><td>Impairment</td></tr>
-<tr><td class="n"></td><td>Annuité</td><td>Annuity</td></tr>
-<tr><td class="n"></td><td>Taux d’intérêt / échéance</td><td>Interest rate / maturity</td></tr>
-<tr><td class="n"></td><td>Intérêts courus</td><td>Accrued interest</td></tr>
-<tr><td class="n"></td><td>Nantissement / mise en gage</td><td>Pledge</td></tr>
-<tr><td class="n"></td><td>Découvert</td><td>Overdraft</td></tr>
-<tr><td class="n"></td><td>Taux de change</td><td>Exchange rate</td></tr>
-<tr><td class="n"></td><td>Cours acheteur / cours vendeur</td><td>Bid / ask</td></tr>
-<tr><td class="n"></td><td>Billets / devises</td><td>Bank notes / currency</td></tr>
-<tr><td class="n"></td><td>Marge de contribution</td><td>Contribution margin</td></tr>
-<tr><td class="n"></td><td>Seuil de rentabilité / point mort</td><td>Break-even point</td></tr>
-<tr><td class="n"></td><td>Charges fixes / variables</td><td>Fixed / variable costs</td></tr>
-<tr><td class="n"></td><td>Raison individuelle</td><td>Sole proprietorship</td></tr>
-<tr><td class="n"></td><td>Société à responsabilité limitée (Sàrl)</td><td>Limited liability company (LLC)</td></tr>
-<tr><td class="n"></td><td>Société anonyme (SA)</td><td>Corporation (LTD)</td></tr>
-<tr><td class="n"></td><td>Assemblée générale</td><td>General assembly</td></tr>
-<tr><td class="n"></td><td>Conseil d’administration</td><td>Board of directors</td></tr>
-<tr><td class="n"></td><td>Organe de révision</td><td>External auditor</td></tr>
-<tr><td class="n"></td><td>Contrôle ordinaire / restreint</td><td>Ordinary / limited audit</td></tr>
-<tr><td class="n"></td><td>Statuts</td><td>Articles of association</td></tr>
-<tr><td class="n"></td><td>Registre du commerce</td><td>Business register</td></tr>
-<tr><td class="n"></td><td>Code des obligations (CO)</td><td>Swiss Code of Obligations</td></tr>
-<tr><td class="n"></td><td>Surendettement</td><td>Over-indebtedness</td></tr>
-<tr><td class="n"></td><td>Faillite / liquidation</td><td>Bankruptcy / liquidation</td></tr>
-<tr><td class="n"></td><td>Fusion / acquisition</td><td>Merger / acquisition</td></tr>
-<tr><td class="n"></td><td>Répartition du bénéfice</td><td>Allocation of earnings</td></tr>
-<tr><td class="n"></td><td>Augmentation de capital</td><td>Capital increase</td></tr>
-<tr><td class="n"></td><td>Assainissement</td><td>Financial restructuring</td></tr>
-<tr><td class="n"></td><td>Prudence / intégralité / clarté</td><td>Carefulness / completeness / clarity</td></tr>
-<tr><td class="n"></td><td>Interdiction de compensation</td><td>Non-compensation</td></tr>
+<tr><td>Bilan</td><td>Balance sheet</td></tr>
+<tr><td>Compte de résultat / compte de profits et pertes</td><td>Income statement / profit and loss</td></tr>
+<tr><td>Annexe</td><td>Appendix (notes)</td></tr>
+<tr><td>Tableau de flux de trésorerie</td><td>Cash flow statement</td></tr>
+<tr><td>Écriture comptable</td><td>Journal entry</td></tr>
+<tr><td>Grand livre</td><td>General ledger</td></tr>
+<tr><td>Compte en T</td><td>T-account</td></tr>
+<tr><td>Débit / Crédit</td><td>Debit / Credit</td></tr>
+<tr><td>Comptabilité en partie double</td><td>Double-entry bookkeeping</td></tr>
+<tr><td>Solde</td><td>Balance</td></tr>
+<tr><td>Bouclement / clôture</td><td>Closing</td></tr>
+<tr><td>Plan comptable</td><td>Chart of accounts</td></tr>
+<tr><td>Liquidité / exigibilité</td><td>Liquidity / exigibility</td></tr>
+<tr><td>Valeur d’acquisition</td><td>Acquisition cost</td></tr>
+<tr><td>Valeur nominale</td><td>Nominal value</td></tr>
+<tr><td>Valeur comptable nette</td><td>Net book value</td></tr>
+<tr><td>Valeur vénale / valeur réelle</td><td>Fair value / real value</td></tr>
+<tr><td>Réserves latentes</td><td>Hidden reserves</td></tr>
+<tr><td>Dissolution de réserves latentes</td><td>Dissolution of hidden reserves</td></tr>
+<tr><td>Valeur nette de réalisation</td><td>Net realisable value (NRV)</td></tr>
+<tr><td>Coût moyen pondéré (CMP)</td><td>Weighted average cost (WAC)</td></tr>
+<tr><td>PEPS (premier entré, premier sorti)</td><td>FIFO (first in, first out)</td></tr>
+<tr><td>DEPS (dernier entré, premier sorti)</td><td>LIFO (last in, first out)</td></tr>
+<tr><td>Inventaire permanent / périodique</td><td>Perpetual / periodic inventory</td></tr>
+<tr><td>Coût des marchandises vendues</td><td>Cost of goods sold (COGS)</td></tr>
+<tr><td>Marge brute</td><td>Gross margin</td></tr>
+<tr><td>Amortissement linéaire</td><td>Straight-line depreciation</td></tr>
+<tr><td>Amortissement dégressif</td><td>Sliding-scale / declining balance depreciation</td></tr>
+<tr><td>Méthode directe / indirecte</td><td>Direct / indirect method</td></tr>
+<tr><td>Durée d’utilisation</td><td>Useful life</td></tr>
+<tr><td>Valeur résiduelle</td><td>Residual value</td></tr>
+<tr><td>Dépréciation</td><td>Impairment</td></tr>
+<tr><td>Annuité</td><td>Annuity</td></tr>
+<tr><td>Taux d’intérêt / échéance</td><td>Interest rate / maturity</td></tr>
+<tr><td>Intérêts courus</td><td>Accrued interest</td></tr>
+<tr><td>Nantissement / mise en gage</td><td>Pledge</td></tr>
+<tr><td>Découvert</td><td>Overdraft</td></tr>
+<tr><td>Taux de change</td><td>Exchange rate</td></tr>
+<tr><td>Cours acheteur / cours vendeur</td><td>Bid / ask</td></tr>
+<tr><td>Billets / devises</td><td>Bank notes / currency</td></tr>
+<tr><td>Marge de contribution</td><td>Contribution margin</td></tr>
+<tr><td>Seuil de rentabilité / point mort</td><td>Break-even point</td></tr>
+<tr><td>Charges fixes / variables</td><td>Fixed / variable costs</td></tr>
+<tr><td>Raison individuelle</td><td>Sole proprietorship</td></tr>
+<tr><td>Société à responsabilité limitée (Sàrl)</td><td>Limited liability company (LLC)</td></tr>
+<tr><td>Société anonyme (SA)</td><td>Corporation (LTD)</td></tr>
+<tr><td>Assemblée générale</td><td>General assembly</td></tr>
+<tr><td>Conseil d’administration</td><td>Board of directors</td></tr>
+<tr><td>Organe de révision</td><td>External auditor</td></tr>
+<tr><td>Contrôle ordinaire / restreint</td><td>Ordinary / limited audit</td></tr>
+<tr><td>Statuts</td><td>Articles of association</td></tr>
+<tr><td>Registre du commerce</td><td>Business register</td></tr>
+<tr><td>Code des obligations (CO)</td><td>Swiss Code of Obligations</td></tr>
+<tr><td>Surendettement</td><td>Over-indebtedness</td></tr>
+<tr><td>Faillite / liquidation</td><td>Bankruptcy / liquidation</td></tr>
+<tr><td>Fusion / acquisition</td><td>Merger / acquisition</td></tr>
+<tr><td>Répartition du bénéfice</td><td>Allocation of earnings</td></tr>
+<tr><td>Augmentation de capital</td><td>Capital increase</td></tr>
+<tr><td>Assainissement</td><td>Financial restructuring</td></tr>
+<tr><td>Prudence / intégralité / clarté</td><td>Carefulness / completeness / clarity</td></tr>
+<tr><td>Interdiction de compensation</td><td>Non-compensation</td></tr>
 </tbody>
 </table>
 </div>
@@ -4069,10 +4029,7 @@ footer p{max-width:72ch}
 <h2 class="sec">After the midterm</h2>
 <p class="sec-kicker">The chapters as they appear on your Cyberlearn, and what each one will build on</p>
 
-<div class="box">
-<span class="lab">Read this honestly</span>
-<p style="margin:0">Everything above is built from what you have: the syllabus, the course overview, the Chapter 1 deck, Exercises 1 to 9, the official solutions for 1 to 3, and the chart of accounts. That is your <strong>midterm scope</strong> in full. The chapters below are on Cyberlearn but not yet released, so they are listed as a map rather than taught. Send each deck as it appears and this page gets extended to the same depth.</p>
-</div>
+<p class="note"><strong class="note-lab">Read this honestly.</strong> Everything above is built from what you have: the syllabus, the course overview, the Chapter 1 deck, Exercises 1 to 9, the official solutions for 1 to 3, and the chart of accounts. That is your <strong>midterm scope</strong> in full. The chapters below are on Cyberlearn but not yet released, so they are listed as a map rather than taught. Send each deck as it appears and this page gets extended to the same depth.</p>
 
 <div class="tw">
 <table class="data">
@@ -4102,117 +4059,116 @@ footer p{max-width:72ch}
 </div>
 
 <footer>
-<p><strong>Accounting I · Chapter 1 study ledger.</strong> Built from the HEG Geneva 2026–2027 syllabus, course overview, Chapter 1 deck, Exercises 1 to 9, the official solutions for Exercises 1 to 3, and the Swiss Chart of Accounts for SMEs (Éditions LEP 2014, abridged for schools). Article references are to the Swiss Code of Obligations.</p>
-<p style="margin-top:10px">Solutions to Exercises 1, 2 and 3 are your professor's own. Solutions to Exercises 4 to 9 are worked from the course's mechanisms and cross-checked where the arithmetic allows: Exercise 8's two statements agree independently, and Exercise 9's equity reconciles two ways. Lines marked <span class="tag r">Judgment call</span> depend on a convention your professor may set differently.</p>
+<p class="lockup"><svg class="mark" aria-hidden="true"><use href="#mazen-mark"/></svg><span class="word">MAZEN</span></p>
+<p><strong>Accounting I, Chapter 1, study notes.</strong> Prepared by Marc Valiyev for HEG Geneva students. Built from the 2026-2027 syllabus, course overview, Chapter 1 deck, Exercises 1 to 9, the official solutions to Exercises 1 to 3, and the Swiss Chart of Accounts for SMEs (Éditions LEP 2014, abridged for schools). Article references are to the Swiss Code of Obligations.</p>
+<p style="margin-top:10px">Solutions to Exercises 1, 2 and 3 are the professor's own. Solutions to Exercises 4 to 9 are worked from the course's mechanisms and cross-checked where the arithmetic allows: Exercise 8's two statements agree independently, and Exercise 9's equity reconciles two ways. Lines marked <span class="tag r">Judgment call</span> depend on a convention the professor may set differently. The underlying course material belongs to its authors and to HEG Geneva; the chart of accounts belongs to Éditions LEP.</p>
 </footer>
 
+
+<button class="totop" id="toTop" type="button" aria-label="Back to top">Top &#8593;</button>
 
 <script>
 (function(){
   "use strict";
   var root = document.documentElement;
+  var store = {
+    get: function(k){ try { return localStorage.getItem(k); } catch(e){ return null; } },
+    set: function(k, v){ try { localStorage.setItem(k, v); } catch(e){} }
+  };
+  var narrow = function(){ return window.matchMedia('(max-width:980px)').matches; };
 
-  /* ---------- light / dark switch ---------- */
+  /* ---------- light / dark ---------- */
   var themeBtn = document.getElementById('themeToggle');
-  function currentDark(){
-    var t = root.getAttribute('data-theme');
-    if (t === 'dark') return true;
-    if (t === 'light') return false;
-    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  }
   function applyTheme(dark){
     root.setAttribute('data-theme', dark ? 'dark' : 'light');
-    if (themeBtn) {
-      themeBtn.textContent = dark ? 'Light' : 'Dark';
-      themeBtn.setAttribute('aria-pressed', String(dark));
-    }
-    try { localStorage.setItem('acc1-theme', dark ? 'dark' : 'light'); } catch(e){}
+    if (themeBtn) { themeBtn.textContent = dark ? 'Light' : 'Dark'; themeBtn.setAttribute('aria-pressed', String(dark)); }
   }
-  (function initTheme(){
-    var saved = null;
-    try { saved = localStorage.getItem('acc1-theme'); } catch(e){}
-    // Paper is the default. Dark is an explicit choice, remembered per browser.
-    root.setAttribute('data-theme', saved === 'dark' ? 'dark' : 'light');
-    if (themeBtn) {
-      var d = currentDark();
-      themeBtn.textContent = d ? 'Light' : 'Dark';
-      themeBtn.setAttribute('aria-pressed', String(d));
-      themeBtn.addEventListener('click', function(){ applyTheme(!currentDark()); });
-    }
-  })();
-
-  /* ---------- bilingual terms: click to swap ---------- */
-  Array.prototype.forEach.call(document.querySelectorAll('[data-fr]'), function(el){
-    el.setAttribute('role', 'button');
-    el.setAttribute('tabindex', '0');
-    el.setAttribute('title', 'Cliquer pour le terme français');
-    var en = el.textContent;
-    var fr = el.getAttribute('data-fr');
-    function swap(){
-      var on = el.classList.toggle('fr-on');
-      el.textContent = on ? fr : en;
-      el.setAttribute('title', on ? 'Click for the English term' : 'Cliquer pour le terme français');
-    }
-    el.addEventListener('click', function(e){ e.stopPropagation(); swap(); });
-    el.addEventListener('keydown', function(e){
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); swap(); }
-    });
+  applyTheme(store.get('acc1-theme') === 'dark');
+  if (themeBtn) themeBtn.addEventListener('click', function(){
+    var dark = root.getAttribute('data-theme') !== 'dark';
+    applyTheme(dark); store.set('acc1-theme', dark ? 'dark' : 'light');
   });
 
-  /* ---------- nav: scroll spy + mobile toggle ---------- */
+  /* ---------- contents rail: show / hide, remembered ---------- */
+  var shell = document.getElementById('shell');
+  var navToggle = document.getElementById('navToggle');
+  function setRail(shown){
+    shell.classList.toggle('rail-hidden', !shown);
+    if (navToggle) navToggle.setAttribute('aria-pressed', String(shown));
+  }
+  (function initRail(){
+    var saved = store.get('acc1-rail');            // 'shown' | 'hidden' | null
+    if (saved === 'shown' || saved === 'hidden') setRail(saved === 'shown');
+    else setRail(!narrow());                        // phones start folded, desktops open
+  })();
+  if (navToggle) navToggle.addEventListener('click', function(){
+    var shown = shell.classList.contains('rail-hidden');
+    setRail(shown); store.set('acc1-rail', shown ? 'shown' : 'hidden');
+  });
+  // on phones, following a link folds the rail again so the text is in view
+  document.getElementById('railbody').addEventListener('click', function(e){
+    if (e.target.closest('a') && narrow()) setRail(false);
+  });
+
+  /* ---------- scroll spy: highlight link, open its Part ---------- */
   var links = Array.prototype.slice.call(document.querySelectorAll('.rail a[href^="#"]'));
   var map = {};
-  links.forEach(function(a){
-    var id = a.getAttribute('href').slice(1);
-    if (document.getElementById(id)) map[id] = a;
-  });
+  links.forEach(function(a){ var id = a.getAttribute('href').slice(1); if (document.getElementById(id)) map[id] = a; });
   if ('IntersectionObserver' in window) {
     var visible = {};
     var io = new IntersectionObserver(function(entries){
       entries.forEach(function(e){ visible[e.target.id] = e.isIntersecting; });
       var current = null;
       Object.keys(map).forEach(function(id){ if (visible[id] && !current) current = id; });
-      if (current) {
-        links.forEach(function(a){ a.classList.remove('on'); });
-        map[current].classList.add('on');
-      }
+      if (!current) return;
+      links.forEach(function(a){ a.classList.remove('on'); });
+      var a = map[current]; a.classList.add('on');
+      var part = a.closest('details.navpart');
+      Array.prototype.forEach.call(document.querySelectorAll('details.navpart'), function(d){ d.classList.toggle('current', d === part); });
+      if (part && !part.open) part.open = true;
     }, { rootMargin: '-64px 0px -72% 0px', threshold: 0 });
     Object.keys(map).forEach(function(id){ io.observe(document.getElementById(id)); });
   }
-  var navToggle = document.getElementById('navToggle');
-  var railbody  = document.getElementById('railbody');
-  function syncRail(){
-    if (!railbody) return;
-    if (window.matchMedia('(max-width:980px)').matches) {
-      if (navToggle.getAttribute('aria-expanded') !== 'true') railbody.hidden = true;
-    } else {
-      railbody.hidden = false;
-    }
-  }
-  if (navToggle && railbody) {
-    navToggle.addEventListener('click', function(){
-      var open = navToggle.getAttribute('aria-expanded') === 'true';
-      navToggle.setAttribute('aria-expanded', String(!open));
-      railbody.hidden = open;
-    });
-    railbody.addEventListener('click', function(e){
-      if (e.target.closest('a') && window.matchMedia('(max-width:980px)').matches) {
-        navToggle.setAttribute('aria-expanded','false');
-        railbody.hidden = true;
-      }
-    });
-    window.addEventListener('resize', syncRail);
-    syncRail();
-  }
 
-  /* ---------- open / close all ---------- */
+  /* ---------- bilingual terms: click to swap ---------- */
+  Array.prototype.forEach.call(document.querySelectorAll('[data-fr]'), function(el){
+    el.setAttribute('role', 'button'); el.setAttribute('tabindex', '0');
+    el.setAttribute('title', 'Cliquer pour le terme français');
+    var en = el.textContent, fr = el.getAttribute('data-fr');
+    function swap(){
+      var on = el.classList.toggle('fr-on');
+      el.textContent = on ? fr : en;
+      el.setAttribute('title', on ? 'Click for the English term' : 'Cliquer pour le terme français');
+    }
+    el.addEventListener('click', function(e){ e.stopPropagation(); swap(); });
+    el.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); swap(); } });
+  });
+
+  /* ---------- expand / collapse everything foldable in the text ---------- */
   function setAll(open){
     Array.prototype.forEach.call(document.querySelectorAll('details.rev, details.practice'), function(d){ d.open = open; });
   }
-  var oa = document.getElementById('openAll');
-  var ca = document.getElementById('closeAll');
+  var oa = document.getElementById('openAll'), ca = document.getElementById('closeAll');
   if (oa) oa.addEventListener('click', function(){ setAll(true); });
   if (ca) ca.addEventListener('click', function(){ setAll(false); });
+
+  /* ---------- scroll cue on tables wider than their box ---------- */
+  function markScrollable(){
+    Array.prototype.forEach.call(document.querySelectorAll('.je-wrap, .tw'), function(w){
+      w.classList.toggle('scrollable', w.scrollWidth > w.clientWidth + 2);
+    });
+  }
+  markScrollable();
+  window.addEventListener('resize', markScrollable);
+  document.addEventListener('toggle', function(){ setTimeout(markScrollable, 0); }, true);
+
+  /* ---------- back to top ---------- */
+  var toTop = document.getElementById('toTop');
+  if (toTop) {
+    var onScroll = function(){ toTop.classList.toggle('show', window.scrollY > innerHeight * 1.5); };
+    window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+    toTop.addEventListener('click', function(){ window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  }
 
   /* ---------- glossary live filter ---------- */
   var glInput = document.getElementById('glsearch');
@@ -4223,22 +4179,15 @@ footer p{max-width:72ch}
     function norm(s){ return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }
     var hay = glRows.map(function(tr){ return norm(tr.textContent); });
     function filter(){
-      var q = norm(glInput.value.trim());
-      var shown = 0;
-      glRows.forEach(function(tr,i){
-        var hit = !q || hay[i].indexOf(q) !== -1;
-        tr.hidden = !hit;
-        if (hit) shown++;
-      });
+      var q = norm(glInput.value.trim()), shown = 0;
+      glRows.forEach(function(tr,i){ var hit = !q || hay[i].indexOf(q) !== -1; tr.hidden = !hit; if (hit) shown++; });
       glTables.forEach(function(t){
         var any = Array.prototype.some.call(t.querySelectorAll('tbody tr'), function(tr){ return !tr.hidden; });
-        var wrap = t.closest('.tw');
-        if (wrap) wrap.hidden = !any;
+        var wrap = t.closest('.tw'); if (wrap) wrap.hidden = !any;
       });
       glCount.textContent = q ? (shown + ' of ' + glRows.length + ' terms') : (glRows.length + ' terms');
     }
-    glInput.addEventListener('input', filter);
-    filter();
+    glInput.addEventListener('input', filter); filter();
   }
 
   /* ---------- drills ---------- */
@@ -4356,66 +4305,32 @@ footer p{max-width:72ch}
         a:0, f:'The two statements are built from different accounts, so agreeing on the result is genuine evidence the entries are right.' }
     ]
   };
-
-  function shuffle(arr){
-    var a = arr.slice();
-    for (var i = a.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var t = a[i]; a[i] = a[j]; a[j] = t;
-    }
-    return a;
-  }
+  function shuffle(arr){ var a = arr.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
   function initDrill(key){
-    var bank = BANKS[key];
-    var elQ = document.getElementById('q-' + key);
-    var elO = document.getElementById('o-' + key);
+    var bank = BANKS[key], elQ = document.getElementById('q-' + key), elO = document.getElementById('o-' + key);
     if (!bank || !elQ || !elO) return;
-    var elS = document.getElementById('s-' + key);
-    var elF = document.getElementById('f-' + key);
-    var elP = document.getElementById('p-' + key);
-    var elScore = document.getElementById('score-' + key);
-    var order = shuffle(bank.map(function(_, i){ return i; }));
-    var pos = 0, asked = 0, right = 0, answered = false;
+    var elS = document.getElementById('s-' + key), elF = document.getElementById('f-' + key),
+        elP = document.getElementById('p-' + key), elScore = document.getElementById('score-' + key);
+    var order = shuffle(bank.map(function(_, i){ return i; })), pos = 0, asked = 0, right = 0, answered = false;
     function render(){
-      var item = bank[order[pos]];
-      answered = false;
-      elQ.textContent = item.q;
-      elS.textContent = item.s;
-      elF.textContent = '';
-      elO.innerHTML = '';
+      var item = bank[order[pos]]; answered = false;
+      elQ.textContent = item.q; elS.textContent = item.s; elF.textContent = ''; elO.innerHTML = '';
       shuffle(item.o.map(function(_, i){ return i; })).forEach(function(oi){
-        var b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'opt';
-        b.textContent = item.o[oi];
+        var b = document.createElement('button'); b.type = 'button'; b.className = 'opt'; b.textContent = item.o[oi];
         b.addEventListener('click', function(){
-          if (answered) return;
-          answered = true;
-          asked++;
-          var correct = oi === item.a;
-          if (correct) right++;
+          if (answered) return; answered = true; asked++;
+          var correct = oi === item.a; if (correct) right++;
           Array.prototype.forEach.call(elO.children, function(btn){ btn.disabled = true; });
           b.classList.add(correct ? 'right' : 'wrong');
-          if (!correct) {
-            Array.prototype.forEach.call(elO.children, function(btn){
-              if (btn.textContent === item.o[item.a]) btn.classList.add('right');
-            });
-          }
-          elF.textContent = (correct ? '✓ ' : '✗ ') + item.f;
-          elScore.textContent = right + ' / ' + asked;
+          if (!correct) Array.prototype.forEach.call(elO.children, function(btn){ if (btn.textContent === item.o[item.a]) btn.classList.add('right'); });
+          elF.textContent = (correct ? '✓ ' : '✗ ') + item.f; elScore.textContent = right + ' / ' + asked;
         });
         elO.appendChild(b);
       });
       elP.textContent = 'Question ' + (pos + 1) + ' of ' + bank.length;
     }
     var nextBtn = document.querySelector('[data-drill-next="' + key + '"]');
-    if (nextBtn) {
-      nextBtn.addEventListener('click', function(){
-        pos = (pos + 1) % bank.length;
-        if (pos === 0) order = shuffle(bank.map(function(_, i){ return i; }));
-        render();
-      });
-    }
+    if (nextBtn) nextBtn.addEventListener('click', function(){ pos = (pos + 1) % bank.length; if (pos === 0) order = shuffle(bank.map(function(_, i){ return i; })); render(); });
     render();
   }
   Object.keys(BANKS).forEach(initDrill);
